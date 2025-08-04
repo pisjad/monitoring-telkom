@@ -1,0 +1,63 @@
+{
+  "slug": "get-support",
+  "name": "Get Support",
+  "customers": [
+    { "id": 1, "name": "Customer A" },
+    { "id": 2, "name": "Customer B" },
+    { "id": 3, "name": "Customer C" }
+  ],
+  "groups": [
+    {
+      "group_name": "BS",
+      "activities": [
+        {
+          "id": "sup-bs-1",
+          "name": "Pengajuan request support",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Request sudah diajukan", "2": "Sedang proses", "3": "" },
+          "uic": "GS"
+        },
+        {
+          "id": "sup-bs-2",
+          "name": "Follow-up dan komunikasi",
+          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
+          "notes": { "1": "Sedang follow-up", "2": "", "3": "" },
+          "uic": "TA"
+        },
+        {
+          "id": "sup-bs-3",
+          "name": "Evaluasi kepuasan",
+          "statuses": { "1": "todo", "2": "todo", "3": "todo" },
+          "notes": { "1": "", "2": "", "3": "" },
+          "uic": "TIF"
+        }
+      ]
+    },
+    {
+      "group_name": "GS",
+      "activities": [
+        {
+          "id": "sup-gs-1",
+          "name": "Penanganan ticket support",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Ticket selesai", "2": "Sedang handle", "3": "" },
+          "uic": "AP"
+        },
+        {
+          "id": "sup-gs-2",
+          "name": "Escalation ke tim teknis",
+          "statuses": { "1": "done", "2": "todo", "3": "in progress" },
+          "notes": { "1": "Escalation selesai", "2": "", "3": "Sedang escalation" },
+          "uic": "SE"
+        },
+        {
+          "id": "sup-gs-3",
+          "name": "Resolusi dan dokumentasi",
+          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
+          "notes": { "1": "Sedang dokumentasi", "2": "", "3": "" },
+          "uic": "GS"
+        }
+      ]
+    }
+  ]
+} 

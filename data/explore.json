@@ -1,32 +1,61 @@
 {
   "slug": "explore",
   "name": "Explore",
-  "customers": [
-    { "id": 1, "name": "Customer A" },
-    { "id": 2, "name": "Customer B" }
-  ],
-  "groups": [
-    {
-      "group_name": "BS",
-      "activities": [
-        {
-          "id": "exp-bs-1",
-          "name": "Visit pelanggan dan menggali kebutuhan",
-          "statuses": { "1": "done", "2": "to do" },
-          "notes": { "1": "Sudah visit tgl 16/07", "2": "" }
-        }
-      ]
-    },
-    {
-      "group_name": "GS",
-      "activities": [
-        {
-          "id": "exp-gs-1",
-          "name": "Analisis kebutuhan pelanggan",
-          "statuses": { "1": "in progress", "2": "to do" },
-          "notes": { "1": "Sedang dalam proses analisis", "2": "" }
-        }
-      ]
-    }
-  ]
+  "bs_table": {
+    "customers": [
+      { "id": 1, "name": "PT LONG RICH INDONESIA" },
+      { "id": 2, "name": "PT BERKAH BEKASI OPS" },
+      { "id": 3, "name": "PT. AICA INDONESIA" },
+      { "id": 4, "name": "PT LONG WELL INTERNATIONAL" },
+      { "id": 5, "name": "PT. ENERGASINDO HEKSA RAYA" },
+      { "id": 6, "name": "CHUHATSU INDONESIA" },
+      { "id": 7, "name": "PT. KANEFUSA INDONESIA" },
+      { "id": 8, "name": "PT DUNIA KIMIA JAYA" },
+      { "id": 9, "name": "PT INOAC POLYTECHNO" },
+      { "id": 10, "name": "PT JUARA BUJUK RAYU" },
+      { "id": 11, "name": "PT DUTA HITA JAYA" },
+      { "id": 12, "name": "PT TEMPRINA MEDIA GRAFIKA" },
+      { "id": 13, "name": "PT BED TECHNOLOGY SOLUSI" },
+      { "id": 14, "name": "PT SDI PROPERTIES INDONESIA" },
+      { "id": 15, "name": "PT HON CHUAN INDONESIA" }
+    ],
+    "activities": [
+      { "id": "exp-bs-1", "name": "Visit pelanggan dan menggali kebutuhan", "uic": "GS", "statuses": {}, "notes": {} },
+      { "id": "exp-bs-2", "name": "Menawarkan Demo/Free Trial Produk/layanan", "uic": "GS", "statuses": {}, "notes": {} },
+      { "id": "exp-bs-3", "name": "Edukasi Customer terkait harga produk/layanan Telkom", "uic": "GS", "statuses": {}, "notes": {} },
+      { "id": "exp-bs-4", "name": "Sosialisasi Produk/layanan ke Tim Marketing (AM,SA/AR)", "uic": "SE", "statuses": {}, "notes": {} },
+      { "id": "exp-bs-5", "name": "Konsultasi Teknis related to kebutuhan customer", "uic": "SE", "statuses": {}, "notes": {} },
+      { "id": "exp-bs-6", "name": "Mendampingi AM bertemu dengan Pelanggan", "uic": "SE", "statuses": {}, "notes": {} },
+      { "id": "exp-bs-7", "name": "Assessment Jaringan ready to use", "uic": "TIF", "statuses": {}, "notes": {} },
+      { "id": "exp-bs-8", "name": "Assessment kualitas jaringan dan estetika", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "exp-bs-9", "name": "Visit oleh teknisi utk perbaikan/perapihan jaringan", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "exp-bs-10", "name": "Penyediaan Katalog Product", "uic": "AP", "statuses": {}, "notes": {} }
+    ]
+  },
+  "gs_table": {
+    "customers": [
+      { "id": 1, "name": "RSUD SUBANG" },
+      { "id": 2, "name": "BAPENDA KARAWANG" },
+      { "id": 3, "name": "KANTOR PERTANAHAN PURWAKARTA" },
+      { "id": 4, "name": "BAPENDA SUBANG" },
+      { "id": 5, "name": "BAPENDA PURWAKARTA" },
+      { "id": 6, "name": "SATPOL PP KOTA BEKASI" },
+      { "id": 7, "name": "BAPENDA KOTA BEKASI" },
+      { "id": 8, "name": "RSUD JATISARI KARAWANG" },
+      { "id": 9, "name": "DINAS PERHUBUNGAN KABUPATEN BEKASI" },
+      { "id": 10, "name": "BAPENDA KABUPATEN BEKASI" }
+    ],
+    "activities": [
+      { "id": "exp-gs-1", "name": "Visit pelanggan dan menggali kebutuhan", "uic": "GS", "statuses": {}, "notes": {} },
+      { "id": "exp-gs-2", "name": "Menawarkan Demo/Free Trial Produk/layanan", "uic": "GS", "statuses": {}, "notes": {} },
+      { "id": "exp-gs-3", "name": "Edukasi Customer terkait harga produk/layanan Telkom", "uic": "GS", "statuses": {}, "notes": {} },
+      { "id": "exp-gs-4", "name": "Sosialisasi Produk/layanan ke Tim Marketing (AM,SA/AR)", "uic": "SE", "statuses": {}, "notes": {} },
+      { "id": "exp-gs-5", "name": "Konsultasi Teknis related to kebutuhan customer", "uic": "SE", "statuses": {}, "notes": {} },
+      { "id": "exp-gs-6", "name": "Mendampingi AM bertemu dengan Pelanggan", "uic": "SE", "statuses": {}, "notes": {} },
+      { "id": "exp-gs-7", "name": "Assessment Jaringan ready to use", "uic": "TIF", "statuses": {}, "notes": {} },
+      { "id": "exp-gs-8", "name": "Assessment kualitas jaringan dan estetika", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "exp-gs-9", "name": "Visit oleh teknisi utk perbaikan/perapihan jaringan", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "exp-gs-10", "name": "Penyediaan Katalog Product", "uic": "AP", "statuses": {}, "notes": {} }
+    ]
+  }
 } 

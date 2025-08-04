@@ -1,0 +1,63 @@
+{
+  "slug": "use",
+  "name": "Use",
+  "customers": [
+    { "id": 1, "name": "Customer A" },
+    { "id": 2, "name": "Customer B" },
+    { "id": 3, "name": "Customer C" }
+  ],
+  "groups": [
+    {
+      "group_name": "BS",
+      "activities": [
+        {
+          "id": "use-bs-1",
+          "name": "Penggunaan harian sistem",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Sistem digunakan aktif", "2": "Sedang adaptasi", "3": "" },
+          "uic": "GS"
+        },
+        {
+          "id": "use-bs-2",
+          "name": "Optimasi proses bisnis",
+          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
+          "notes": { "1": "Sedang optimasi", "2": "", "3": "" },
+          "uic": "TA"
+        },
+        {
+          "id": "use-bs-3",
+          "name": "Pelaporan dan analisis",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Laporan rutin", "2": "Sedang setup laporan", "3": "" },
+          "uic": "TIF"
+        }
+      ]
+    },
+    {
+      "group_name": "GS",
+      "activities": [
+        {
+          "id": "use-gs-1",
+          "name": "Monitoring performa sistem",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Monitoring aktif", "2": "Sedang setup monitoring", "3": "" },
+          "uic": "AP"
+        },
+        {
+          "id": "use-gs-2",
+          "name": "Maintenance dan update",
+          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
+          "notes": { "1": "Update terbaru", "2": "", "3": "" },
+          "uic": "SE"
+        },
+        {
+          "id": "use-gs-3",
+          "name": "Troubleshooting dan support",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Support berjalan baik", "2": "Sedang troubleshooting", "3": "" },
+          "uic": "GS"
+        }
+      ]
+    }
+  ]
+} 

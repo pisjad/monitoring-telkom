@@ -1,0 +1,63 @@
+{
+  "slug": "pay",
+  "name": "Pay",
+  "customers": [
+    { "id": 1, "name": "Customer A" },
+    { "id": 2, "name": "Customer B" },
+    { "id": 3, "name": "Customer C" }
+  ],
+  "groups": [
+    {
+      "group_name": "BS",
+      "activities": [
+        {
+          "id": "pay-bs-1",
+          "name": "Pembayaran awal",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Pembayaran lunas", "2": "Sedang proses", "3": "" },
+          "uic": "GS"
+        },
+        {
+          "id": "pay-bs-2",
+          "name": "Pembayaran berkelanjutan",
+          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
+          "notes": { "1": "Pembayaran rutin", "2": "", "3": "" },
+          "uic": "TA"
+        },
+        {
+          "id": "pay-bs-3",
+          "name": "Review dan negosiasi harga",
+          "statuses": { "1": "todo", "2": "todo", "3": "todo" },
+          "notes": { "1": "", "2": "", "3": "" },
+          "uic": "TIF"
+        }
+      ]
+    },
+    {
+      "group_name": "GS",
+      "activities": [
+        {
+          "id": "pay-gs-1",
+          "name": "Setup billing system",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Billing system aktif", "2": "Sedang setup", "3": "" },
+          "uic": "AP"
+        },
+        {
+          "id": "pay-gs-2",
+          "name": "Monitoring pembayaran",
+          "statuses": { "1": "done", "2": "todo", "3": "in progress" },
+          "notes": { "1": "Monitoring aktif", "2": "", "3": "Sedang setup monitoring" },
+          "uic": "SE"
+        },
+        {
+          "id": "pay-gs-3",
+          "name": "Penanganan dispute billing",
+          "statuses": { "1": "todo", "2": "todo", "3": "todo" },
+          "notes": { "1": "", "2": "", "3": "" },
+          "uic": "GS"
+        }
+      ]
+    }
+  ]
+} 

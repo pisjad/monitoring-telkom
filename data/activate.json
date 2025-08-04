@@ -1,0 +1,63 @@
+{
+  "slug": "activate",
+  "name": "Activate",
+  "customers": [
+    { "id": 1, "name": "Customer A" },
+    { "id": 2, "name": "Customer B" },
+    { "id": 3, "name": "Customer C" }
+  ],
+  "groups": [
+    {
+      "group_name": "BS",
+      "activities": [
+        {
+          "id": "act-bs-1",
+          "name": "Setup akun dan akses",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Akun sudah disetup", "2": "Sedang setup", "3": "" },
+          "uic": "GS"
+        },
+        {
+          "id": "act-bs-2",
+          "name": "Konfigurasi awal sistem",
+          "statuses": { "1": "done", "2": "todo", "3": "in progress" },
+          "notes": { "1": "Konfigurasi selesai", "2": "", "3": "Sedang konfigurasi" },
+          "uic": "TA"
+        },
+        {
+          "id": "act-bs-3",
+          "name": "Training pengguna",
+          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
+          "notes": { "1": "Training sedang berjalan", "2": "", "3": "" },
+          "uic": "TIF"
+        }
+      ]
+    },
+    {
+      "group_name": "GS",
+      "activities": [
+        {
+          "id": "act-gs-1",
+          "name": "Instalasi dan deployment",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Deployment selesai", "2": "Sedang deploy", "3": "" },
+          "uic": "AP"
+        },
+        {
+          "id": "act-gs-2",
+          "name": "Testing dan validasi",
+          "statuses": { "1": "done", "2": "todo", "3": "in progress" },
+          "notes": { "1": "Testing selesai", "2": "", "3": "Sedang testing" },
+          "uic": "SE"
+        },
+        {
+          "id": "act-gs-3",
+          "name": "Go-live dan monitoring",
+          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
+          "notes": { "1": "Sedang monitoring", "2": "", "3": "" },
+          "uic": "GS"
+        }
+      ]
+    }
+  ]
+} 

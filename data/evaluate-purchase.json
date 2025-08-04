@@ -1,0 +1,63 @@
+{
+  "slug": "evaluate-purchase",
+  "name": "Evaluate & Purchase",
+  "customers": [
+    { "id": 1, "name": "Customer A" },
+    { "id": 2, "name": "Customer B" },
+    { "id": 3, "name": "Customer C" }
+  ],
+  "groups": [
+    {
+      "group_name": "BS",
+      "activities": [
+        {
+          "id": "eval-bs-1",
+          "name": "Presentasi proposal lengkap",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Proposal sudah dipresentasikan", "2": "Sedang menyiapkan", "3": "" },
+          "uic": "GS"
+        },
+        {
+          "id": "eval-bs-2",
+          "name": "Negosiasi harga dan terms",
+          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
+          "notes": { "1": "Sedang negosiasi", "2": "", "3": "" },
+          "uic": "TA"
+        },
+        {
+          "id": "eval-bs-3",
+          "name": "Penandatanganan kontrak",
+          "statuses": { "1": "todo", "2": "todo", "3": "todo" },
+          "notes": { "1": "", "2": "", "3": "" },
+          "uic": "TIF"
+        }
+      ]
+    },
+    {
+      "group_name": "GS",
+      "activities": [
+        {
+          "id": "eval-gs-1",
+          "name": "Evaluasi teknis solusi",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Evaluasi selesai", "2": "Sedang evaluasi", "3": "" },
+          "uic": "AP"
+        },
+        {
+          "id": "eval-gs-2",
+          "name": "Proof of Concept (POC)",
+          "statuses": { "1": "done", "2": "todo", "3": "in progress" },
+          "notes": { "1": "POC berhasil", "2": "", "3": "POC sedang berjalan" },
+          "uic": "SE"
+        },
+        {
+          "id": "eval-gs-3",
+          "name": "Finalisasi spesifikasi teknis",
+          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
+          "notes": { "1": "Sedang finalisasi", "2": "", "3": "" },
+          "uic": "GS"
+        }
+      ]
+    }
+  ]
+} 

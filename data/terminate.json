@@ -1,0 +1,63 @@
+{
+  "slug": "terminate",
+  "name": "Terminate",
+  "customers": [
+    { "id": 1, "name": "Customer A" },
+    { "id": 2, "name": "Customer B" },
+    { "id": 3, "name": "Customer C" }
+  ],
+  "groups": [
+    {
+      "group_name": "BS",
+      "activities": [
+        {
+          "id": "term-bs-1",
+          "name": "Pengajuan permintaan terminasi",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Permintaan sudah diajukan", "2": "Sedang proses", "3": "" },
+          "uic": "GS"
+        },
+        {
+          "id": "term-bs-2",
+          "name": "Negosiasi dan retention",
+          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
+          "notes": { "1": "Sedang negosiasi", "2": "", "3": "" },
+          "uic": "TA"
+        },
+        {
+          "id": "term-bs-3",
+          "name": "Exit interview dan feedback",
+          "statuses": { "1": "todo", "2": "todo", "3": "todo" },
+          "notes": { "1": "", "2": "", "3": "" },
+          "uic": "TIF"
+        }
+      ]
+    },
+    {
+      "group_name": "GS",
+      "activities": [
+        {
+          "id": "term-gs-1",
+          "name": "Deactivation sistem",
+          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
+          "notes": { "1": "Sistem sudah dinonaktifkan", "2": "Sedang deactivate", "3": "" },
+          "uic": "AP"
+        },
+        {
+          "id": "term-gs-2",
+          "name": "Data backup dan transfer",
+          "statuses": { "1": "done", "2": "todo", "3": "in progress" },
+          "notes": { "1": "Backup selesai", "2": "", "3": "Sedang backup" },
+          "uic": "SE"
+        },
+        {
+          "id": "term-gs-3",
+          "name": "Final settlement dan dokumentasi",
+          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
+          "notes": { "1": "Sedang settlement", "2": "", "3": "" },
+          "uic": "GS"
+        }
+      ]
+    }
+  ]
+} 
