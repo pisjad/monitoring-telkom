@@ -1,0 +1,32 @@
+{
+  "slug": "explore",
+  "name": "Explore",
+  "customers": [
+    { "id": 1, "name": "Customer A" },
+    { "id": 2, "name": "Customer B" }
+  ],
+  "groups": [
+    {
+      "group_name": "BS",
+      "activities": [
+        {
+          "id": "exp-bs-1",
+          "name": "Visit pelanggan dan menggali kebutuhan",
+          "statuses": { "1": "done", "2": "to do" },
+          "notes": { "1": "Sudah visit tgl 16/07", "2": "" }
+        }
+      ]
+    },
+    {
+      "group_name": "GS",
+      "activities": [
+        {
+          "id": "exp-gs-1",
+          "name": "Analisis kebutuhan pelanggan",
+          "statuses": { "1": "in progress", "2": "to do" },
+          "notes": { "1": "Sedang dalam proses analisis", "2": "" }
+        }
+      ]
+    }
+  ]
+} 
