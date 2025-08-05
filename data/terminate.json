@@ -1,63 +1,53 @@
 {
   "slug": "terminate",
   "name": "Terminate",
-  "customers": [
-    { "id": 1, "name": "Customer A" },
-    { "id": 2, "name": "Customer B" },
-    { "id": 3, "name": "Customer C" }
-  ],
-  "groups": [
-    {
-      "group_name": "BS",
-      "activities": [
-        {
-          "id": "term-bs-1",
-          "name": "Pengajuan permintaan terminasi",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Permintaan sudah diajukan", "2": "Sedang proses", "3": "" },
-          "uic": "GS"
-        },
-        {
-          "id": "term-bs-2",
-          "name": "Negosiasi dan retention",
-          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
-          "notes": { "1": "Sedang negosiasi", "2": "", "3": "" },
-          "uic": "TA"
-        },
-        {
-          "id": "term-bs-3",
-          "name": "Exit interview dan feedback",
-          "statuses": { "1": "todo", "2": "todo", "3": "todo" },
-          "notes": { "1": "", "2": "", "3": "" },
-          "uic": "TIF"
-        }
-      ]
-    },
-    {
-      "group_name": "GS",
-      "activities": [
-        {
-          "id": "term-gs-1",
-          "name": "Deactivation sistem",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Sistem sudah dinonaktifkan", "2": "Sedang deactivate", "3": "" },
-          "uic": "AP"
-        },
-        {
-          "id": "term-gs-2",
-          "name": "Data backup dan transfer",
-          "statuses": { "1": "done", "2": "todo", "3": "in progress" },
-          "notes": { "1": "Backup selesai", "2": "", "3": "Sedang backup" },
-          "uic": "SE"
-        },
-        {
-          "id": "term-gs-3",
-          "name": "Final settlement dan dokumentasi",
-          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
-          "notes": { "1": "Sedang settlement", "2": "", "3": "" },
-          "uic": "GS"
-        }
-      ]
-    }
-  ]
-} 
+  "bs_table": {
+    "customers": [
+      { "id": 1, "name": "PT LONG RICH INDONESIA" },
+      { "id": 2, "name": "PT BERKAH BEKASI OPS" },
+      { "id": 3, "name": "PT. AICA INDONESIA" },
+      { "id": 4, "name": "PT LONG WELL INTERNATIONAL" },
+      { "id": 5, "name": "PT. ENERGASINDO HEKSA RAYA" },
+      { "id": 6, "name": "CHUHATSU INDONESIA" },
+      { "id": 7, "name": "PT. KANEFUSA INDONESIA" },
+      { "id": 8, "name": "PT DUNIA KIMIA JAYA" },
+      { "id": 9, "name": "PT INOAC POLYTECHNO" },
+      { "id": 10, "name": "PT JUARA BUJUK RAYU" },
+      { "id": 11, "name": "PT DUTA HITA JAYA" },
+      { "id": 12, "name": "PT TEMPRINA MEDIA GRAFIKA" },
+      { "id": 13, "name": "PT BED TECHNOLOGY SOLUSI" },
+      { "id": 14, "name": "PT SDI PROPERTIES INDONESIA" },
+      { "id": 15, "name": "PT HON CHUAN INDONESIA" }
+    ],
+    "activities": [
+      { "id": "term-bs-1", "name": "Menyisir kontrak kontrak pelanggan yang akan cabut layanan (End dan renewal Kontrak)", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "term-bs-2", "name": "Merekap penyebab pelanggan cabut layanan", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "term-bs-3", "name": "Memberikan informasi jika layanan isolir atau sudah terminasi", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "term-bs-4", "name": "Pengecekan terhadap pelanggan yang telah melakukan DO, tidak terbit billing", "uic": "SSGS", "statuses": {}, "notes": {} },
+      { "id": "term-bs-5", "name": "Memastikan layanan pelanggan sudah tercabut seluruhnya di sistem maupun di pelanggan (DO Completed)", "uic": "PO", "statuses": {}, "notes": {} },
+      { "id": "term-bs-6", "name": "Dismantle perangkat layanan", "uic": "TA", "statuses": {}, "notes": {} }
+    ]
+  },
+  "gs_table": {
+    "customers": [
+      { "id": 1, "name": "RSUD SUBANG" },
+      { "id": 2, "name": "BAPENDA KARAWANG" },
+      { "id": 3, "name": "KANTOR PERTANAHAN PURWAKARTA" },
+      { "id": 4, "name": "BAPENDA SUBANG" },
+      { "id": 5, "name": "BAPENDA PURWAKARTA" },
+      { "id": 6, "name": "SATPOL PP KOTA BEKASI" },
+      { "id": 7, "name": "BAPENDA KOTA BEKASI" },
+      { "id": 8, "name": "RSUD JATISARI KARAWANG" },
+      { "id": 9, "name": "DINAS PERHUBUNGAN KABUPATEN BEKASI" },
+      { "id": 10, "name": "BAPENDA KABUPATEN BEKASI" }
+    ],
+    "activities": [
+      { "id": "term-gs-1", "name": "Menyisir kontrak kontrak pelanggan yang akan cabut layanan (End dan renewal Kontrak)", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "term-gs-2", "name": "Merekap penyebab pelanggan cabut layanan", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "term-gs-3", "name": "Memberikan informasi jika layanan isolir atau sudah terminasi", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "term-gs-4", "name": "Pengecekan terhadap pelanggan yang telah melakukan DO, tidak terbit billing", "uic": "SSGS", "statuses": {}, "notes": {} },
+      { "id": "term-gs-5", "name": "Memastikan layanan pelanggan sudah tercabut seluruhnya di sistem maupun di pelanggan (DO Completed)", "uic": "PO", "statuses": {}, "notes": {} },
+      { "id": "term-gs-6", "name": "Dismantle perangkat layanan", "uic": "TA", "statuses": {}, "notes": {} }
+    ]
+  }
+}

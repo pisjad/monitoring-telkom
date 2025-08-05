@@ -20,16 +20,236 @@
       { "id": 15, "name": "PT HON CHUAN INDONESIA" }
     ],
     "activities": [
-      { "id": "exp-bs-1", "name": "Visit pelanggan dan menggali kebutuhan", "uic": "GS", "statuses": {}, "notes": {} },
-      { "id": "exp-bs-2", "name": "Menawarkan Demo/Free Trial Produk/layanan", "uic": "GS", "statuses": {}, "notes": {} },
-      { "id": "exp-bs-3", "name": "Edukasi Customer terkait harga produk/layanan Telkom", "uic": "GS", "statuses": {}, "notes": {} },
-      { "id": "exp-bs-4", "name": "Sosialisasi Produk/layanan ke Tim Marketing (AM,SA/AR)", "uic": "SE", "statuses": {}, "notes": {} },
-      { "id": "exp-bs-5", "name": "Konsultasi Teknis related to kebutuhan customer", "uic": "SE", "statuses": {}, "notes": {} },
-      { "id": "exp-bs-6", "name": "Mendampingi AM bertemu dengan Pelanggan", "uic": "SE", "statuses": {}, "notes": {} },
-      { "id": "exp-bs-7", "name": "Assessment Jaringan ready to use", "uic": "TIF", "statuses": {}, "notes": {} },
-      { "id": "exp-bs-8", "name": "Assessment kualitas jaringan dan estetika", "uic": "TA", "statuses": {}, "notes": {} },
-      { "id": "exp-bs-9", "name": "Visit oleh teknisi utk perbaikan/perapihan jaringan", "uic": "TA", "statuses": {}, "notes": {} },
-      { "id": "exp-bs-10", "name": "Penyediaan Katalog Product", "uic": "AP", "statuses": {}, "notes": {} }
+      { 
+        "id": "exp-bs-1", 
+        "name": "Visit pelanggan dan menggali kebutuhan", 
+        "uic": "GS", 
+        "statuses": {
+          "1": "done",
+          "2": "in progress", 
+          "3": "todo",
+          "4": "done",
+          "5": "in progress",
+          "6": "todo",
+          "7": "done",
+          "8": "in progress",
+          "9": "todo",
+          "10": "done",
+          "11": "in progress",
+          "12": "todo",
+          "13": "done",
+          "14": "in progress",
+          "15": "todo"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-bs-2", 
+        "name": "Menawarkan Demo/Free Trial Produk/layanan", 
+        "uic": "GS", 
+        "statuses": {
+          "1": "in progress",
+          "2": "done",
+          "3": "todo",
+          "4": "in progress",
+          "5": "done",
+          "6": "todo",
+          "7": "in progress",
+          "8": "done",
+          "9": "todo",
+          "10": "in progress",
+          "11": "done",
+          "12": "todo",
+          "13": "in progress",
+          "14": "done",
+          "15": "todo"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-bs-3", 
+        "name": "Edukasi Customer terkait harga produk/layanan Telkom", 
+        "uic": "GS", 
+        "statuses": {
+          "1": "todo",
+          "2": "in progress",
+          "3": "done",
+          "4": "todo",
+          "5": "in progress",
+          "6": "done",
+          "7": "todo",
+          "8": "in progress",
+          "9": "done",
+          "10": "todo",
+          "11": "in progress",
+          "12": "done",
+          "13": "todo",
+          "14": "in progress",
+          "15": "done"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-bs-4", 
+        "name": "Sosialisasi Produk/layanan ke Tim Marketing (AM,SA/AR)", 
+        "uic": "SE", 
+        "statuses": {
+          "1": "done",
+          "2": "todo",
+          "3": "in progress",
+          "4": "done",
+          "5": "todo",
+          "6": "in progress",
+          "7": "done",
+          "8": "todo",
+          "9": "in progress",
+          "10": "done",
+          "11": "todo",
+          "12": "in progress",
+          "13": "done",
+          "14": "todo",
+          "15": "in progress"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-bs-5", 
+        "name": "Konsultasi Teknis related to kebutuhan customer", 
+        "uic": "SE", 
+        "statuses": {
+          "1": "in progress",
+          "2": "done",
+          "3": "todo",
+          "4": "in progress",
+          "5": "done",
+          "6": "todo",
+          "7": "in progress",
+          "8": "done",
+          "9": "todo",
+          "10": "in progress",
+          "11": "done",
+          "12": "todo",
+          "13": "in progress",
+          "14": "done",
+          "15": "todo"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-bs-6", 
+        "name": "Mendampingi AM bertemu dengan Pelanggan", 
+        "uic": "SE", 
+        "statuses": {
+          "1": "todo",
+          "2": "in progress",
+          "3": "done",
+          "4": "todo",
+          "5": "in progress",
+          "6": "done",
+          "7": "todo",
+          "8": "in progress",
+          "9": "done",
+          "10": "todo",
+          "11": "in progress",
+          "12": "done",
+          "13": "todo",
+          "14": "in progress",
+          "15": "done"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-bs-7", 
+        "name": "Assessment Jaringan ready to use", 
+        "uic": "TIF", 
+        "statuses": {
+          "1": "done",
+          "2": "todo",
+          "3": "in progress",
+          "4": "done",
+          "5": "todo",
+          "6": "in progress",
+          "7": "done",
+          "8": "todo",
+          "9": "in progress",
+          "10": "done",
+          "11": "todo",
+          "12": "in progress",
+          "13": "done",
+          "14": "todo",
+          "15": "in progress"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-bs-8", 
+        "name": "Assessment kualitas jaringan dan estetika", 
+        "uic": "TA", 
+        "statuses": {
+          "1": "in progress",
+          "2": "done",
+          "3": "todo",
+          "4": "in progress",
+          "5": "done",
+          "6": "todo",
+          "7": "in progress",
+          "8": "done",
+          "9": "todo",
+          "10": "in progress",
+          "11": "done",
+          "12": "todo",
+          "13": "in progress",
+          "14": "done",
+          "15": "todo"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-bs-9", 
+        "name": "Visit oleh teknisi utk perbaikan/perapihan jaringan", 
+        "uic": "TA", 
+        "statuses": {
+          "1": "todo",
+          "2": "in progress",
+          "3": "done",
+          "4": "todo",
+          "5": "in progress",
+          "6": "done",
+          "7": "todo",
+          "8": "in progress",
+          "9": "done",
+          "10": "todo",
+          "11": "in progress",
+          "12": "done",
+          "13": "todo",
+          "14": "in progress",
+          "15": "done"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-bs-10", 
+        "name": "Penyediaan Katalog Product", 
+        "uic": "AP", 
+        "statuses": {
+          "1": "done",
+          "2": "todo",
+          "3": "in progress",
+          "4": "done",
+          "5": "todo",
+          "6": "in progress",
+          "7": "done",
+          "8": "todo",
+          "9": "in progress",
+          "10": "done",
+          "11": "todo",
+          "12": "in progress",
+          "13": "done",
+          "14": "todo",
+          "15": "in progress"
+        }, 
+        "notes": {} 
+      }
     ]
   },
   "gs_table": {
@@ -46,16 +266,186 @@
       { "id": 10, "name": "BAPENDA KABUPATEN BEKASI" }
     ],
     "activities": [
-      { "id": "exp-gs-1", "name": "Visit pelanggan dan menggali kebutuhan", "uic": "GS", "statuses": {}, "notes": {} },
-      { "id": "exp-gs-2", "name": "Menawarkan Demo/Free Trial Produk/layanan", "uic": "GS", "statuses": {}, "notes": {} },
-      { "id": "exp-gs-3", "name": "Edukasi Customer terkait harga produk/layanan Telkom", "uic": "GS", "statuses": {}, "notes": {} },
-      { "id": "exp-gs-4", "name": "Sosialisasi Produk/layanan ke Tim Marketing (AM,SA/AR)", "uic": "SE", "statuses": {}, "notes": {} },
-      { "id": "exp-gs-5", "name": "Konsultasi Teknis related to kebutuhan customer", "uic": "SE", "statuses": {}, "notes": {} },
-      { "id": "exp-gs-6", "name": "Mendampingi AM bertemu dengan Pelanggan", "uic": "SE", "statuses": {}, "notes": {} },
-      { "id": "exp-gs-7", "name": "Assessment Jaringan ready to use", "uic": "TIF", "statuses": {}, "notes": {} },
-      { "id": "exp-gs-8", "name": "Assessment kualitas jaringan dan estetika", "uic": "TA", "statuses": {}, "notes": {} },
-      { "id": "exp-gs-9", "name": "Visit oleh teknisi utk perbaikan/perapihan jaringan", "uic": "TA", "statuses": {}, "notes": {} },
-      { "id": "exp-gs-10", "name": "Penyediaan Katalog Product", "uic": "AP", "statuses": {}, "notes": {} }
+      { 
+        "id": "exp-gs-1", 
+        "name": "Visit pelanggan dan menggali kebutuhan", 
+        "uic": "GS", 
+        "statuses": {
+          "1": "done",
+          "2": "in progress",
+          "3": "todo",
+          "4": "done",
+          "5": "in progress",
+          "6": "todo",
+          "7": "done",
+          "8": "in progress",
+          "9": "todo",
+          "10": "done"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-gs-2", 
+        "name": "Menawarkan Demo/Free Trial Produk/layanan", 
+        "uic": "GS", 
+        "statuses": {
+          "1": "in progress",
+          "2": "done",
+          "3": "todo",
+          "4": "in progress",
+          "5": "done",
+          "6": "todo",
+          "7": "in progress",
+          "8": "done",
+          "9": "todo",
+          "10": "in progress"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-gs-3", 
+        "name": "Edukasi Customer terkait harga produk/layanan Telkom", 
+        "uic": "GS", 
+        "statuses": {
+          "1": "todo",
+          "2": "in progress",
+          "3": "done",
+          "4": "todo",
+          "5": "in progress",
+          "6": "done",
+          "7": "todo",
+          "8": "in progress",
+          "9": "done",
+          "10": "todo"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-gs-4", 
+        "name": "Sosialisasi Produk/layanan ke Tim Marketing (AM,SA/AR)", 
+        "uic": "SE", 
+        "statuses": {
+          "1": "done",
+          "2": "todo",
+          "3": "in progress",
+          "4": "done",
+          "5": "todo",
+          "6": "in progress",
+          "7": "done",
+          "8": "todo",
+          "9": "in progress",
+          "10": "done"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-gs-5", 
+        "name": "Konsultasi Teknis related to kebutuhan customer", 
+        "uic": "SE", 
+        "statuses": {
+          "1": "in progress",
+          "2": "done",
+          "3": "todo",
+          "4": "in progress",
+          "5": "done",
+          "6": "todo",
+          "7": "in progress",
+          "8": "done",
+          "9": "todo",
+          "10": "in progress"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-gs-6", 
+        "name": "Mendampingi AM bertemu dengan Pelanggan", 
+        "uic": "SE", 
+        "statuses": {
+          "1": "todo",
+          "2": "in progress",
+          "3": "done",
+          "4": "todo",
+          "5": "in progress",
+          "6": "done",
+          "7": "todo",
+          "8": "in progress",
+          "9": "done",
+          "10": "todo"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-gs-7", 
+        "name": "Assessment Jaringan ready to use", 
+        "uic": "TIF", 
+        "statuses": {
+          "1": "done",
+          "2": "todo",
+          "3": "in progress",
+          "4": "done",
+          "5": "todo",
+          "6": "in progress",
+          "7": "done",
+          "8": "todo",
+          "9": "in progress",
+          "10": "done"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-gs-8", 
+        "name": "Assessment kualitas jaringan dan estetika", 
+        "uic": "TA", 
+        "statuses": {
+          "1": "in progress",
+          "2": "done",
+          "3": "todo",
+          "4": "in progress",
+          "5": "done",
+          "6": "todo",
+          "7": "in progress",
+          "8": "done",
+          "9": "todo",
+          "10": "in progress"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-gs-9", 
+        "name": "Visit oleh teknisi utk perbaikan/perapihan jaringan", 
+        "uic": "TA", 
+        "statuses": {
+          "1": "todo",
+          "2": "in progress",
+          "3": "done",
+          "4": "todo",
+          "5": "in progress",
+          "6": "done",
+          "7": "todo",
+          "8": "in progress",
+          "9": "done",
+          "10": "todo"
+        }, 
+        "notes": {} 
+      },
+      { 
+        "id": "exp-gs-10", 
+        "name": "Penyediaan Katalog Product", 
+        "uic": "AP", 
+        "statuses": {
+          "1": "done",
+          "2": "todo",
+          "3": "in progress",
+          "4": "done",
+          "5": "todo",
+          "6": "in progress",
+          "7": "done",
+          "8": "todo",
+          "9": "in progress",
+          "10": "done"
+        }, 
+        "notes": {} 
+      }
     ]
   }
 } 

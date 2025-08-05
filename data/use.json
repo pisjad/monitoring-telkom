@@ -1,63 +1,59 @@
 {
   "slug": "use",
   "name": "Use",
-  "customers": [
-    { "id": 1, "name": "Customer A" },
-    { "id": 2, "name": "Customer B" },
-    { "id": 3, "name": "Customer C" }
-  ],
-  "groups": [
-    {
-      "group_name": "BS",
-      "activities": [
-        {
-          "id": "use-bs-1",
-          "name": "Penggunaan harian sistem",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Sistem digunakan aktif", "2": "Sedang adaptasi", "3": "" },
-          "uic": "GS"
-        },
-        {
-          "id": "use-bs-2",
-          "name": "Optimasi proses bisnis",
-          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
-          "notes": { "1": "Sedang optimasi", "2": "", "3": "" },
-          "uic": "TA"
-        },
-        {
-          "id": "use-bs-3",
-          "name": "Pelaporan dan analisis",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Laporan rutin", "2": "Sedang setup laporan", "3": "" },
-          "uic": "TIF"
-        }
-      ]
-    },
-    {
-      "group_name": "GS",
-      "activities": [
-        {
-          "id": "use-gs-1",
-          "name": "Monitoring performa sistem",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Monitoring aktif", "2": "Sedang setup monitoring", "3": "" },
-          "uic": "AP"
-        },
-        {
-          "id": "use-gs-2",
-          "name": "Maintenance dan update",
-          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
-          "notes": { "1": "Update terbaru", "2": "", "3": "" },
-          "uic": "SE"
-        },
-        {
-          "id": "use-gs-3",
-          "name": "Troubleshooting dan support",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Support berjalan baik", "2": "Sedang troubleshooting", "3": "" },
-          "uic": "GS"
-        }
-      ]
-    }
-  ]
-} 
+  "bs_table": {
+    "customers": [
+      { "id": 1, "name": "PT LONG RICH INDONESIA" },
+      { "id": 2, "name": "PT BERKAH BEKASI OPS" },
+      { "id": 3, "name": "PT. AICA INDONESIA" },
+      { "id": 4, "name": "PT LONG WELL INTERNATIONAL" },
+      { "id": 5, "name": "PT. ENERGASINDO HEKSA RAYA" },
+      { "id": 6, "name": "CHUHATSU INDONESIA" },
+      { "id": 7, "name": "PT. KANEFUSA INDONESIA" },
+      { "id": 8, "name": "PT DUNIA KIMIA JAYA" },
+      { "id": 9, "name": "PT INOAC POLYTECHNO" },
+      { "id": 10, "name": "PT JUARA BUJUK RAYU" },
+      { "id": 11, "name": "PT DUTA HITA JAYA" },
+      { "id": 12, "name": "PT TEMPRINA MEDIA GRAFIKA" },
+      { "id": 13, "name": "PT BED TECHNOLOGY SOLUSI" },
+      { "id": 14, "name": "PT SDI PROPERTIES INDONESIA" },
+      { "id": 15, "name": "PT HON CHUAN INDONESIA" }
+    ],
+    "activities": [
+      { "id": "use-bs-1", "name": "Jalin Komunikasi dengan Cust untuk mendapatkan feedback berupa Testimoni akan layanan yang digunakan", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "use-bs-2", "name": "Pengawalan keluhan/gangguan khususnya untuk tiket non teknis", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "use-bs-3", "name": "Monitoring penggunaan layanan dan memberikan rekomendasi ke tim markting (bila diperlukan)", "uic": "SE", "statuses": {}, "notes": {} },
+      { "id": "use-bs-4", "name": "Koordinasi dengan SE dan Produk Owner agar layanan yang telah di deliver sudah dapat digunakan pelanggan", "uic": "PO", "statuses": {}, "notes": {} },
+      { "id": "use-bs-5", "name": "Predictive ticket untuk gangguan teknis dan non teknis", "uic": "TIF", "statuses": {}, "notes": {} },
+      { "id": "use-bs-6", "name": "Mengirimkan notifikasi jika terdapat gangguan/maintenance yang berdampak pada customer secara langsung", "uic": "TIF", "statuses": {}, "notes": {} },
+      { "id": "use-bs-7", "name": "Pengukuran rutin layanan SQM (Early Incident Detection)", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "use-bs-8", "name": "Penyelesaian keluhan pelanggan sesuai spesifikasi layanan yang terukur", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "use-bs-9", "name": "Memastikan layanan/produk sudah dapat digunakan pelanggan melalui jalin komunikasi dengan AM Telkom", "uic": "AP", "statuses": {}, "notes": {} }
+    ]
+  },
+  "gs_table": {
+    "customers": [
+      { "id": 1, "name": "RSUD SUBANG" },
+      { "id": 2, "name": "BAPENDA KARAWANG" },
+      { "id": 3, "name": "KANTOR PERTANAHAN PURWAKARTA" },
+      { "id": 4, "name": "BAPENDA SUBANG" },
+      { "id": 5, "name": "BAPENDA PURWAKARTA" },
+      { "id": 6, "name": "SATPOL PP KOTA BEKASI" },
+      { "id": 7, "name": "BAPENDA KOTA BEKASI" },
+      { "id": 8, "name": "RSUD JATISARI KARAWANG" },
+      { "id": 9, "name": "DINAS PERHUBUNGAN KABUPATEN BEKASI" },
+      { "id": 10, "name": "BAPENDA KABUPATEN BEKASI" }
+    ],
+    "activities": [
+      { "id": "use-gs-1", "name": "Jalin Komunikasi dengan Cust untuk mendapatkan feedback berupa Testimoni akan layanan yang digunakan", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "use-gs-2", "name": "Pengawalan keluhan/gangguan khususnya untuk tiket non teknis", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "use-gs-3", "name": "Monitoring penggunaan layanan dan memberikan rekomendasi ke tim markting (bila diperlukan)", "uic": "SE", "statuses": {}, "notes": {} },
+      { "id": "use-gs-4", "name": "Koordinasi dengan SE dan Produk Owner agar layanan yang telah di deliver sudah dapat digunakan pelanggan", "uic": "PO", "statuses": {}, "notes": {} },
+      { "id": "use-gs-5", "name": "Predictive ticket untuk gangguan teknis dan non teknis", "uic": "TIF", "statuses": {}, "notes": {} },
+      { "id": "use-gs-6", "name": "Mengirimkan notifikasi jika terdapat gangguan/maintenance yang berdampak pada customer secara langsung", "uic": "TIF", "statuses": {}, "notes": {} },
+      { "id": "use-gs-7", "name": "Pengukuran rutin layanan SQM (Early Incident Detection)", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "use-gs-8", "name": "Penyelesaian keluhan pelanggan sesuai spesifikasi layanan yang terukur", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "use-gs-9", "name": "Memastikan layanan/produk sudah dapat digunakan pelanggan melalui jalin komunikasi dengan AM Telkom", "uic": "AP", "statuses": {}, "notes": {} }
+    ]
+  }
+}

@@ -1,63 +1,57 @@
 {
   "slug": "activate",
   "name": "Activate",
-  "customers": [
-    { "id": 1, "name": "Customer A" },
-    { "id": 2, "name": "Customer B" },
-    { "id": 3, "name": "Customer C" }
-  ],
-  "groups": [
-    {
-      "group_name": "BS",
-      "activities": [
-        {
-          "id": "act-bs-1",
-          "name": "Setup akun dan akses",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Akun sudah disetup", "2": "Sedang setup", "3": "" },
-          "uic": "GS"
-        },
-        {
-          "id": "act-bs-2",
-          "name": "Konfigurasi awal sistem",
-          "statuses": { "1": "done", "2": "todo", "3": "in progress" },
-          "notes": { "1": "Konfigurasi selesai", "2": "", "3": "Sedang konfigurasi" },
-          "uic": "TA"
-        },
-        {
-          "id": "act-bs-3",
-          "name": "Training pengguna",
-          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
-          "notes": { "1": "Training sedang berjalan", "2": "", "3": "" },
-          "uic": "TIF"
-        }
-      ]
-    },
-    {
-      "group_name": "GS",
-      "activities": [
-        {
-          "id": "act-gs-1",
-          "name": "Instalasi dan deployment",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Deployment selesai", "2": "Sedang deploy", "3": "" },
-          "uic": "AP"
-        },
-        {
-          "id": "act-gs-2",
-          "name": "Testing dan validasi",
-          "statuses": { "1": "done", "2": "todo", "3": "in progress" },
-          "notes": { "1": "Testing selesai", "2": "", "3": "Sedang testing" },
-          "uic": "SE"
-        },
-        {
-          "id": "act-gs-3",
-          "name": "Go-live dan monitoring",
-          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
-          "notes": { "1": "Sedang monitoring", "2": "", "3": "" },
-          "uic": "GS"
-        }
-      ]
-    }
-  ]
-} 
+  "bs_table": {
+    "customers": [
+      { "id": 1, "name": "PT LONG RICH INDONESIA" },
+      { "id": 2, "name": "PT BERKAH BEKASI OPS" },
+      { "id": 3, "name": "PT. AICA INDONESIA" },
+      { "id": 4, "name": "PT LONG WELL INTERNATIONAL" },
+      { "id": 5, "name": "PT. ENERGASINDO HEKSA RAYA" },
+      { "id": 6, "name": "CHUHATSU INDONESIA" },
+      { "id": 7, "name": "PT. KANEFUSA INDONESIA" },
+      { "id": 8, "name": "PT DUNIA KIMIA JAYA" },
+      { "id": 9, "name": "PT INOAC POLYTECHNO" },
+      { "id": 10, "name": "PT JUARA BUJUK RAYU" },
+      { "id": 11, "name": "PT DUTA HITA JAYA" },
+      { "id": 12, "name": "PT TEMPRINA MEDIA GRAFIKA" },
+      { "id": 13, "name": "PT BED TECHNOLOGY SOLUSI" },
+      { "id": 14, "name": "PT SDI PROPERTIES INDONESIA" },
+      { "id": 15, "name": "PT HON CHUAN INDONESIA" }
+    ],
+    "activities": [
+      { "id": "act-bs-1", "name": "Koordinasi proses aktivasi layanan", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "act-bs-2", "name": "Memastikan layanan terdeliver sesuai kontrak", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "act-bs-3", "name": "Pengawalan delivery order sampai dengan Billcomp", "uic": "PO", "statuses": {}, "notes": {} },
+      { "id": "act-bs-4", "name": "Pengawalan Order Regular by HD", "uic": "TIF", "statuses": {}, "notes": {} },
+      { "id": "act-bs-5", "name": "Pengawalan Order perlu JT", "uic": "TIF", "statuses": {}, "notes": {} },
+      { "id": "act-bs-6", "name": "Pemenuhan JT sesuai SLA dari spesifikasi layanan hingga waktu pemenuhan", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "act-bs-7", "name": "Instalasi Order sesuai SLA dari spesifikasi layanan hingga waktu pemenuhan", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "act-bs-8", "name": "Koordinasi proses aktivasi layanan", "uic": "AP", "statuses": {}, "notes": {} }
+    ]
+  },
+  "gs_table": {
+    "customers": [
+      { "id": 1, "name": "RSUD SUBANG" },
+      { "id": 2, "name": "BAPENDA KARAWANG" },
+      { "id": 3, "name": "KANTOR PERTANAHAN PURWAKARTA" },
+      { "id": 4, "name": "BAPENDA SUBANG" },
+      { "id": 5, "name": "BAPENDA PURWAKARTA" },
+      { "id": 6, "name": "SATPOL PP KOTA BEKASI" },
+      { "id": 7, "name": "BAPENDA KOTA BEKASI" },
+      { "id": 8, "name": "RSUD JATISARI KARAWANG" },
+      { "id": 9, "name": "DINAS PERHUBUNGAN KABUPATEN BEKASI" },
+      { "id": 10, "name": "BAPENDA KABUPATEN BEKASI" }
+    ],
+    "activities": [
+      { "id": "act-gs-1", "name": "Koordinasi proses aktivasi layanan", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "act-gs-2", "name": "Memastikan layanan terdeliver sesuai kontrak", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "act-gs-3", "name": "Pengawalan delivery order sampai dengan Billcomp", "uic": "PO", "statuses": {}, "notes": {} },
+      { "id": "act-gs-4", "name": "Pengawalan Order Regular by HD", "uic": "TIF", "statuses": {}, "notes": {} },
+      { "id": "act-gs-5", "name": "Pengawalan Order perlu JT", "uic": "TIF", "statuses": {}, "notes": {} },
+      { "id": "act-gs-6", "name": "Pemenuhan JT sesuai SLA dari spesifikasi layanan hingga waktu pemenuhan", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "act-gs-7", "name": "Instalasi Order sesuai SLA dari spesifikasi layanan hingga waktu pemenuhan", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "act-gs-8", "name": "Koordinasi proses aktivasi layanan", "uic": "AP", "statuses": {}, "notes": {} }
+    ]
+  }
+}

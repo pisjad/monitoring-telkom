@@ -1,63 +1,53 @@
 {
   "slug": "evaluate-purchase",
   "name": "Evaluate & Purchase",
-  "customers": [
-    { "id": 1, "name": "Customer A" },
-    { "id": 2, "name": "Customer B" },
-    { "id": 3, "name": "Customer C" }
-  ],
-  "groups": [
-    {
-      "group_name": "BS",
-      "activities": [
-        {
-          "id": "eval-bs-1",
-          "name": "Presentasi proposal lengkap",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Proposal sudah dipresentasikan", "2": "Sedang menyiapkan", "3": "" },
-          "uic": "GS"
-        },
-        {
-          "id": "eval-bs-2",
-          "name": "Negosiasi harga dan terms",
-          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
-          "notes": { "1": "Sedang negosiasi", "2": "", "3": "" },
-          "uic": "TA"
-        },
-        {
-          "id": "eval-bs-3",
-          "name": "Penandatanganan kontrak",
-          "statuses": { "1": "todo", "2": "todo", "3": "todo" },
-          "notes": { "1": "", "2": "", "3": "" },
-          "uic": "TIF"
-        }
-      ]
-    },
-    {
-      "group_name": "GS",
-      "activities": [
-        {
-          "id": "eval-gs-1",
-          "name": "Evaluasi teknis solusi",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Evaluasi selesai", "2": "Sedang evaluasi", "3": "" },
-          "uic": "AP"
-        },
-        {
-          "id": "eval-gs-2",
-          "name": "Proof of Concept (POC)",
-          "statuses": { "1": "done", "2": "todo", "3": "in progress" },
-          "notes": { "1": "POC berhasil", "2": "", "3": "POC sedang berjalan" },
-          "uic": "SE"
-        },
-        {
-          "id": "eval-gs-3",
-          "name": "Finalisasi spesifikasi teknis",
-          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
-          "notes": { "1": "Sedang finalisasi", "2": "", "3": "" },
-          "uic": "GS"
-        }
-      ]
-    }
-  ]
-} 
+  "bs_table": {
+    "customers": [
+      { "id": 1, "name": "PT LONG RICH INDONESIA" },
+      { "id": 2, "name": "PT BERKAH BEKASI OPS" },
+      { "id": 3, "name": "PT. AICA INDONESIA" },
+      { "id": 4, "name": "PT LONG WELL INTERNATIONAL" },
+      { "id": 5, "name": "PT. ENERGASINDO HEKSA RAYA" },
+      { "id": 6, "name": "CHUHATSU INDONESIA" },
+      { "id": 7, "name": "PT. KANEFUSA INDONESIA" },
+      { "id": 8, "name": "PT DUNIA KIMIA JAYA" },
+      { "id": 9, "name": "PT INOAC POLYTECHNO" },
+      { "id": 10, "name": "PT JUARA BUJUK RAYU" },
+      { "id": 11, "name": "PT DUTA HITA JAYA" },
+      { "id": 12, "name": "PT TEMPRINA MEDIA GRAFIKA" },
+      { "id": 13, "name": "PT BED TECHNOLOGY SOLUSI" },
+      { "id": 14, "name": "PT SDI PROPERTIES INDONESIA" },
+      { "id": 15, "name": "PT HON CHUAN INDONESIA" }
+    ],
+    "activities": [
+      { "id": "eval-bs-1", "name": "Koordinasi proses aktivasi layanan", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "eval-bs-2", "name": "Memastikan layanan terdeliver sesuai kontrak", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "eval-bs-3", "name": "Mengawal proses perpanjangan kontrak sejak bulan N-2", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "eval-bs-4", "name": "Koordinasi proposal terkait opty cust dengan unit/Anper", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "eval-bs-5", "name": "Finalisasi kebutuhan teknis/Opty Cust ke Product Owner", "uic": "SE", "statuses": {}, "notes": {} },
+      { "id": "eval-bs-6", "name": "Pembuatan Surat berisi Daftar referensi Harga hingga Dokumen Penawaran (SPH)", "uic": "AP", "statuses": {}, "notes": {} }
+    ]
+  },
+  "gs_table": {
+    "customers": [
+      { "id": 1, "name": "RSUD SUBANG" },
+      { "id": 2, "name": "BAPENDA KARAWANG" },
+      { "id": 3, "name": "KANTOR PERTANAHAN PURWAKARTA" },
+      { "id": 4, "name": "BAPENDA SUBANG" },
+      { "id": 5, "name": "BAPENDA PURWAKARTA" },
+      { "id": 6, "name": "SATPOL PP KOTA BEKASI" },
+      { "id": 7, "name": "BAPENDA KOTA BEKASI" },
+      { "id": 8, "name": "RSUD JATISARI KARAWANG" },
+      { "id": 9, "name": "DINAS PERHUBUNGAN KABUPATEN BEKASI" },
+      { "id": 10, "name": "BAPENDA KABUPATEN BEKASI" }
+    ],
+    "activities": [
+      { "id": "eval-gs-1", "name": "Koordinasi proses aktivasi layanan", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "eval-gs-2", "name": "Memastikan layanan terdeliver sesuai kontrak", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "eval-gs-3", "name": "Mengawal proses perpanjangan kontrak sejak bulan N-2", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "eval-gs-4", "name": "Koordinasi proposal terkait opty cust dengan unit/Anper", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "eval-gs-5", "name": "Finalisasi kebutuhan teknis/Opty Cust ke Product Owner", "uic": "SE", "statuses": {}, "notes": {} },
+      { "id": "eval-gs-6", "name": "Pembuatan Surat berisi Daftar referensi Harga hingga Dokumen Penawaran (SPH)", "uic": "AP", "statuses": {}, "notes": {} }
+    ]
+  }
+}

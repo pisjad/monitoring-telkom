@@ -1,63 +1,55 @@
 {
   "slug": "get-support",
   "name": "Get Support",
-  "customers": [
-    { "id": 1, "name": "Customer A" },
-    { "id": 2, "name": "Customer B" },
-    { "id": 3, "name": "Customer C" }
-  ],
-  "groups": [
-    {
-      "group_name": "BS",
-      "activities": [
-        {
-          "id": "sup-bs-1",
-          "name": "Pengajuan request support",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Request sudah diajukan", "2": "Sedang proses", "3": "" },
-          "uic": "GS"
-        },
-        {
-          "id": "sup-bs-2",
-          "name": "Follow-up dan komunikasi",
-          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
-          "notes": { "1": "Sedang follow-up", "2": "", "3": "" },
-          "uic": "TA"
-        },
-        {
-          "id": "sup-bs-3",
-          "name": "Evaluasi kepuasan",
-          "statuses": { "1": "todo", "2": "todo", "3": "todo" },
-          "notes": { "1": "", "2": "", "3": "" },
-          "uic": "TIF"
-        }
-      ]
-    },
-    {
-      "group_name": "GS",
-      "activities": [
-        {
-          "id": "sup-gs-1",
-          "name": "Penanganan ticket support",
-          "statuses": { "1": "done", "2": "in progress", "3": "todo" },
-          "notes": { "1": "Ticket selesai", "2": "Sedang handle", "3": "" },
-          "uic": "AP"
-        },
-        {
-          "id": "sup-gs-2",
-          "name": "Escalation ke tim teknis",
-          "statuses": { "1": "done", "2": "todo", "3": "in progress" },
-          "notes": { "1": "Escalation selesai", "2": "", "3": "Sedang escalation" },
-          "uic": "SE"
-        },
-        {
-          "id": "sup-gs-3",
-          "name": "Resolusi dan dokumentasi",
-          "statuses": { "1": "in progress", "2": "todo", "3": "todo" },
-          "notes": { "1": "Sedang dokumentasi", "2": "", "3": "" },
-          "uic": "GS"
-        }
-      ]
-    }
-  ]
-} 
+  "bs_table": {
+    "customers": [
+      { "id": 1, "name": "PT LONG RICH INDONESIA" },
+      { "id": 2, "name": "PT BERKAH BEKASI OPS" },
+      { "id": 3, "name": "PT. AICA INDONESIA" },
+      { "id": 4, "name": "PT LONG WELL INTERNATIONAL" },
+      { "id": 5, "name": "PT. ENERGASINDO HEKSA RAYA" },
+      { "id": 6, "name": "CHUHATSU INDONESIA" },
+      { "id": 7, "name": "PT. KANEFUSA INDONESIA" },
+      { "id": 8, "name": "PT DUNIA KIMIA JAYA" },
+      { "id": 9, "name": "PT INOAC POLYTECHNO" },
+      { "id": 10, "name": "PT JUARA BUJUK RAYU" },
+      { "id": 11, "name": "PT DUTA HITA JAYA" },
+      { "id": 12, "name": "PT TEMPRINA MEDIA GRAFIKA" },
+      { "id": 13, "name": "PT BED TECHNOLOGY SOLUSI" },
+      { "id": 14, "name": "PT SDI PROPERTIES INDONESIA" },
+      { "id": 15, "name": "PT HON CHUAN INDONESIA" }
+    ],
+    "activities": [
+      { "id": "get-bs-1", "name": "Menjembatani keluhan pelanggan ke unit terkait", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "get-bs-2", "name": "Konfirmasi ke Pelanggan terkait keluhan/gangguan sudah tersolusikan sesuai ekspektasi pelanggan", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "get-bs-3", "name": "Edukasi channel pelaporan keluhan/gangguan lainnya seperti Tenessa", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "get-bs-4", "name": "Memberikan informasi resmi apabila ada keterlambatan invoice", "uic": "SSGS", "statuses": {}, "notes": {} },
+      { "id": "get-bs-5", "name": "Menginformasikan terkait dengan peraturan pemotongan pajan PPN dan PPH", "uic": "SSGS", "statuses": {}, "notes": {} },
+      { "id": "get-bs-6", "name": "Memastikan kualitas perbaikan telah berkualitas agar tidak terjadi gangguan berulang", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "get-bs-7", "name": "Jalin Silaturahmi dengan AM Telkom untuk mendukung pemenuhan layanan ke pelanggan sesuai spesifikasi dan SLA", "uic": "AP", "statuses": {}, "notes": {} }
+    ]
+  },
+  "gs_table": {
+    "customers": [
+      { "id": 1, "name": "RSUD SUBANG" },
+      { "id": 2, "name": "BAPENDA KARAWANG" },
+      { "id": 3, "name": "KANTOR PERTANAHAN PURWAKARTA" },
+      { "id": 4, "name": "BAPENDA SUBANG" },
+      { "id": 5, "name": "BAPENDA PURWAKARTA" },
+      { "id": 6, "name": "SATPOL PP KOTA BEKASI" },
+      { "id": 7, "name": "BAPENDA KOTA BEKASI" },
+      { "id": 8, "name": "RSUD JATISARI KARAWANG" },
+      { "id": 9, "name": "DINAS PERHUBUNGAN KABUPATEN BEKASI" },
+      { "id": 10, "name": "BAPENDA KABUPATEN BEKASI" }
+    ],
+    "activities": [
+      { "id": "get-gs-1", "name": "Menjembatani keluhan pelanggan ke unit terkait", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "get-gs-2", "name": "Konfirmasi ke Pelanggan terkait keluhan/gangguan sudah tersolusikan sesuai ekspektasi pelanggan", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "get-gs-3", "name": "Edukasi channel pelaporan keluhan/gangguan lainnya seperti Tenessa", "uic": "BS", "statuses": {}, "notes": {} },
+      { "id": "get-gs-4", "name": "Memberikan informasi resmi apabila ada keterlambatan invoice", "uic": "SSGS", "statuses": {}, "notes": {} },
+      { "id": "get-gs-5", "name": "Menginformasikan terkait dengan peraturan pemotongan pajan PPN dan PPH", "uic": "SSGS", "statuses": {}, "notes": {} },
+      { "id": "get-gs-6", "name": "Memastikan kualitas perbaikan telah berkualitas agar tidak terjadi gangguan berulang", "uic": "TA", "statuses": {}, "notes": {} },
+      { "id": "get-gs-7", "name": "Jalin Silaturahmi dengan AM Telkom untuk mendukung pemenuhan layanan ke pelanggan sesuai spesifikasi dan SLA", "uic": "AP", "statuses": {}, "notes": {} }
+    ]
+  }
+}
