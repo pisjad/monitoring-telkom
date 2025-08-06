@@ -2,6 +2,27 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Plus, Info, X, ChevronDown } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -25,7 +46,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Plus, Info, X, ChevronDown } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 // Tipe data untuk setiap baris issue
 export type Issue = {
@@ -33,14 +61,8 @@ export type Issue = {
   week: string;
   tanggal: string;
   witel: string;
-  issueDetail: {
-    title: string;
-    impact: string;
-  };
-  actionPlanM2: {
-    main: string;
-    sub: string;
-  };
+  issueDetail: string;
+  actionPlanM2: string;
   actionPlanM3: string;
   actionPlanM4: string;
   startDate: string;
@@ -55,8 +77,84 @@ export type Issue = {
   status: "Done" | "OGP";
 };
 
+const initialFormState: NewIssueFormState = {
+  week: "",
+  witel: "",
+  issueDetail: "",
+  actionPlanM2: "",
+  actionPlanM3: "",
+  actionPlanM4: "",
+  weight: "",
+  uicWitel: "",
+  eskalasiTreg: "T",
+  supportNeeded: "",
+  picTreg: "",
+  responTreg: "Belum ada respon.",
+  progress: 0,
+  status: "Done",
+  tanggal: new Date(),
+  startDate: new Date(),
+  endDate: new Date(),
+};
+
+type NewIssueFormState = Omit<
+  Partial<Issue>,
+  "tanggal" | "startDate" | "endDate"
+> & {
+  tanggal?: Date;
+  startDate?: Date;
+  endDate?: Date;
+};
+
 export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
   const [issues, setIssues] = useState<Issue[]>(initialData);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [newIssue, setNewIssue] = useState<NewIssueFormState>(initialFormState);
+
+  const [openPopovers, setOpenPopovers] = useState({
+    tanggal: false,
+    startDate: false,
+    endDate: false,
+  });
+
+  // Handler untuk mengubah data di form
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setNewIssue((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handler khusus untuk komponen Select
+  const handleSelectChange = (name: keyof Issue, value: string) => {
+    setNewIssue((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handler untuk mengubah tanggal
+  const handleDateChange = (
+    name: "tanggal" | "startDate" | "endDate",
+    date: Date | undefined
+  ) => {
+    if (date) {
+      setNewIssue((prev) => ({ ...prev, [name]: date }));
+    }
+  };
+
+  // Handler untuk submit form
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const finalNewIssue: Issue = {
+      ...initialFormState,
+      ...newIssue,
+      no: (issues[issues.length - 1]?.no || 10) + 1,
+      tanggal: format(newIssue.tanggal!, "dd/MM/yyyy"),
+      startDate: format(newIssue.startDate!, "dd/MM/yyyy"),
+      endDate: format(newIssue.endDate!, "dd/MM/yyyy"),
+    } as Issue;
+    setIssues((prevIssues) => [...prevIssues, finalNewIssue]);
+    setIsFormOpen(false);
+    setNewIssue(initialFormState);
+  };
 
   const handleStatusChange = (issueId: number, newStatus: Issue["status"]) => {
     setIssues((currentIssues) =>
@@ -65,7 +163,6 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
       )
     );
   };
-
   const getStatusBadgeStyle = (status: Issue["status"]) => {
     switch (status) {
       case "Done":
@@ -76,6 +173,7 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
         return "bg-gray-100 text-gray-800";
     }
   };
+
   return (
     <div className="font-sans">
       <Card className="rounded-lg">
@@ -84,20 +182,320 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
             <CardTitle className="text-[16px] font-semibold text-gray-800">
               LIST 3 BIG ISSUE Eskalasi TREG
             </CardTitle>
-            <Button className="bg-[#4E80EE] hover:bg-[#4E80EE]/90 text-white w-[128px] h-[30px] text-[12px]">
-              <Plus className="h-4 w-4" /> Tambah Issue
-            </Button>
+
+            {/* Tambah Issue */}
+            <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-[#4E80EE] text-white hover:bg-[#4E80EE]/80 hover:text-white w-[128px] h-[30px] text-[12px]">
+                  <Plus className="h-4 w-4" /> Tambah Issue
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto scrollbar-hide bg-white">
+                <DialogHeader>
+                  <DialogTitle>Tambah Issue Baru</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleFormSubmit}>
+                  <div className="grid md:grid-col-1 gap-4 py-4">
+                    {/* Kolom 1 */}
+                    <div className="grid md:grid-cols-3 grid-cols-1 gap-3 w-[720px]">
+                      <div>
+                        <Label htmlFor="week">Week</Label>
+                        <Input
+                          id="week"
+                          name="week"
+                          value={newIssue.week}
+                          onChange={handleFormChange}
+                          required
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-1.5">
+                        <Label htmlFor="tanggal">Tanggal</Label>
+                        <Popover
+                          open={openPopovers.tanggal}
+                          onOpenChange={(isOpen) =>
+                            setOpenPopovers((prev) => ({
+                              ...prev,
+                              tanggal: isOpen,
+                            }))
+                          }
+                        >
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              id="tanggal"
+                              className="w-full justify-start text-left font-normal"
+                            >
+                              {newIssue.tanggal ? (
+                                format(newIssue.tanggal, "d MMMM yyyy", {
+                                  locale: id,
+                                })
+                              ) : (
+                                <span>Pilih tanggal</span>
+                              )}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={newIssue.tanggal}
+                              captionLayout="dropdown"
+                              fromYear={1900}
+                              toYear={2100}
+                              onSelect={(date) => {
+                                handleDateChange("tanggal", date);
+                                setOpenPopovers((prev) => ({
+                                  ...prev,
+                                  tanggal: false,
+                                }));
+                              }}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="witel">Witel</Label>
+                        <Input
+                          id="witel"
+                          name="witel"
+                          value={newIssue.witel}
+                          onChange={handleFormChange}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid gap-3">
+                      <div>
+                        <Label htmlFor="issueDetail">
+                          3 BIG ISSUE ESKALASI TREG/EMRM/BUD/BUS
+                        </Label>
+                        <Textarea
+                          id="issueDetail"
+                          name="issueDetail"
+                          value={newIssue.issueDetail}
+                          onChange={handleFormChange}
+                          required
+                          style={{ height: 95 }}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="actionPlanM2">Action Plan M2</Label>
+                        <Textarea
+                          id="actionPlanM2"
+                          name="actionPlanM2"
+                          value={newIssue.actionPlanM2}
+                          onChange={handleFormChange}
+                          style={{ height: 95 }}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="actionPlanM3">Action Plan M3</Label>
+                        <Textarea
+                          id="actionPlanM3"
+                          name="actionPlanM3"
+                          value={newIssue.actionPlanM3}
+                          onChange={handleFormChange}
+                          style={{ height: 95 }}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="actionPlanM4">Action Plan M4</Label>
+                        <Textarea
+                          id="actionPlanM4"
+                          name="actionPlanM4"
+                          value={newIssue.actionPlanM4}
+                          onChange={handleFormChange}
+                          style={{ height: 95 }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 grid-cols-1 gap-3 w-[720px]">
+                      <div className="flex flex-col gap-1.5">
+                        <Label htmlFor="startDate">Start Date</Label>
+                        <Popover
+                          open={openPopovers.startDate}
+                          onOpenChange={(isOpen) =>
+                            setOpenPopovers((prev) => ({
+                              ...prev,
+                              startDate: isOpen,
+                            }))
+                          }
+                        >
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              id="startDate"
+                              className="w-full justify-start text-left font-normal"
+                            >
+                              {newIssue.startDate ? (
+                                format(newIssue.startDate, "d MMMM yyyy", {
+                                  locale: id,
+                                })
+                              ) : (
+                                <span>Pilih tanggal</span>
+                              )}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={newIssue.startDate}
+                              captionLayout="dropdown"
+                              fromYear={1900}
+                              toYear={2100}
+                              onSelect={(date) => {
+                                handleDateChange("startDate", date);
+                                setOpenPopovers((prev) => ({
+                                  ...prev,
+                                  startDate: false,
+                                }));
+                              }}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <Label htmlFor="endDate">End Date</Label>
+                        <Popover
+                          open={openPopovers.endDate}
+                          onOpenChange={(isOpen) =>
+                            setOpenPopovers((prev) => ({
+                              ...prev,
+                              endDate: isOpen,
+                            }))
+                          }
+                        >
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              id="endDate"
+                              className="w-full justify-start text-left font-normal"
+                            >
+                              {newIssue.endDate ? (
+                                format(newIssue.endDate, "d MMMM yyyy", {
+                                  locale: id,
+                                })
+                              ) : (
+                                <span>Pilih tanggal</span>
+                              )}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={newIssue.endDate}
+                              captionLayout="dropdown"
+                              fromYear={1900}
+                              toYear={2100}
+                              onSelect={(date) => {
+                                handleDateChange("endDate", date);
+                                setOpenPopovers((prev) => ({
+                                  ...prev,
+                                  endDate: false,
+                                }));
+                              }}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </div>
+                      <div>
+                        <Label htmlFor="weight">Weight</Label>
+                        <Input
+                          id="weight"
+                          name="weight"
+                          value={newIssue.weight}
+                          onChange={handleFormChange}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 grid-cols-1 gap-3 w-[720px]">
+                      <div>
+                        <Label htmlFor="uicWitel">UIC Witel</Label>
+                        <Input
+                          id="uicWitel"
+                          name="uicWitel"
+                          value={newIssue.uicWitel}
+                          onChange={handleFormChange}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="supportNeeded">Support Needed</Label>
+                        <Input
+                          id="supportNeeded"
+                          name="supportNeeded"
+                          value={newIssue.supportNeeded}
+                          onChange={handleFormChange}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="picTreg">PIC TREG</Label>
+                        <Input
+                          id="picTreg"
+                          name="picTreg"
+                          value={newIssue.picTreg}
+                          onChange={handleFormChange}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <div>
+                        <Label htmlFor="eskalasiTreg">
+                          Eskalasi ke TREG (Y/T)
+                        </Label>
+                        <RadioGroup
+                          defaultValue={newIssue.eskalasiTreg}
+                          onValueChange={(value) =>
+                            handleSelectChange("eskalasiTreg", value)
+                          }
+                        >
+                          <div className="flex items-center gap-3">
+                            <RadioGroupItem value="Y" id="Y" />
+                            <Label htmlFor="Y">Y</Label>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <RadioGroupItem value="T" id="T" />
+                            <Label htmlFor="T">T</Label>
+                          </div>
+                        </RadioGroup>
+                      </div>
+                    </div>
+                  </div>
+
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button type="button" variant="secondary">
+                        Batal
+                      </Button>
+                    </DialogClose>
+                    <Button type="submit">Simpan Issue</Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
         </CardHeader>
+
         <CardContent>
           <div className="overflow-x-auto">
-            <Table className="gap-x-1 gap-y-2">
-              <TableHeader className="bg-[#E4F2FF] align-middle h-[88px] text-[12px] font-medium">
-                <TableRow>
+            <Table className="gap-x-1 gap-y-1">
+              <TableHeader className="bg-[#E4F2FF]">
+                <TableRow className="h-[88px] text-[12px] font-medium">
                   <TableHead className="text-center">No</TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">Week</TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">Tanggal</TableHead>
-                  <TableHead className="text-center min-w-[136px]">Witel</TableHead>
+                  <TableHead className="text-center min-w-[88.36px]">
+                    Week
+                  </TableHead>
+                  <TableHead className="text-center min-w-[88.36px]">
+                    Tanggal
+                  </TableHead>
+                  <TableHead className="text-center min-w-[136px]">
+                    Witel
+                  </TableHead>
                   <TableHead className="text-center min-w-[220px]">
                     3 BIG ISSUE ESKALASI <br /> TREG/EMRM/BUD/BUS
                   </TableHead>
@@ -116,55 +514,58 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                   <TableHead className="text-center min-w-[88.36px]">
                     End Date <br /> (DD/MM/YYYY)
                   </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">Weight</TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">UIC Witel</TableHead>
+                  <TableHead className="text-center min-w-[88.36px]">
+                    Weight
+                  </TableHead>
+                  <TableHead className="text-center min-w-[88.36px]">
+                    UIC Witel
+                  </TableHead>
                   <TableHead className="text-center min-w-[88.36px]">
                     Eskalasi ke TREG <br /> (Y/T)
                   </TableHead>
                   <TableHead className="text-center min-w-[88.36px]">
                     Support Needed ke <br /> TREG/EBIS/BUD/AP
                   </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">PIC TREG</TableHead>
-                  <TableHead className="text-center min-w-[109px]">
-                    Respon Support <br />Needed dari TREG
+                  <TableHead className="text-center min-w-[88.36px]">
+                    PIC TREG
                   </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">Progres (%)</TableHead>
+                  <TableHead className="text-center min-w-[109px]">
+                    Respon Support <br />
+                    Needed dari TREG
+                  </TableHead>
+                  <TableHead className="text-center min-w-[88.36px]">
+                    Progres (%)
+                  </TableHead>
                   <TableHead className="text-center min-w-[88.36px]">
                     Status <br /> (OGP/Done)
                   </TableHead>
-                  <TableHead className="text-center min-w-[69px]">Follow Up</TableHead>
+                  <TableHead className="text-center min-w-[69px]">
+                    Follow Up
+                  </TableHead>
                 </TableRow>
               </TableHeader>
 
               <TableBody className="font-medium text-[12px]">
                 {issues.map((issue) => (
                   <TableRow key={issue.no}>
-                    <TableCell className="text-center">
-                      {issue.no}
-                    </TableCell>
+                    <TableCell className="text-center">{issue.no}</TableCell>
                     <TableCell className="text-center">{issue.week}</TableCell>
                     <TableCell className="text-center">
                       {issue.tanggal}
                     </TableCell>
                     <TableCell className="text-center">{issue.witel}</TableCell>
                     <TableCell className="max-w-sm">
-                      <div className="text-xs whitespace-pre-wrap text-center">
-                        {issue.issueDetail.title}
-                        <p className="text-gray-500 italic mt-1">
-                          {issue.issueDetail.impact}
-                        </p>
+                      <div className="whitespace-pre-wrap text-center">
+                        {issue.issueDetail}
                       </div>
                     </TableCell>
-                    <TableCell className="max-w-sm">
-                      <div className="text-xs whitespace-pre-wrap text-center">
-                        <p>{issue.actionPlanM2.main}</p>
-                        <p className="mt-1">{issue.actionPlanM2.sub}</p>
-                      </div>
+                    <TableCell className="text-center whitespace-pre-wrap">
+                      {issue.actionPlanM2}
                     </TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="text-center whitespace-pre-wrap">
                       {issue.actionPlanM3}
                     </TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="text-center whitespace-pre-wrap">
                       {issue.actionPlanM4}
                     </TableCell>
                     <TableCell className="text-center">
@@ -195,7 +596,7 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/10 hover:text-[#4E80EE]"
+                            className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/80 hover:text-white"
                           >
                             Tampilkan Respon
                           </Button>
@@ -280,7 +681,7 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                     <TableCell className="text-center">
                       <Button
                         size="sm"
-                        className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/10 hover:text-[#4E80EE]"
+                        className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/80 hover:text-white"
                       >
                         Follow Up
                       </Button>
@@ -300,32 +701,22 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
             <CardTitle>Rekap Total</CardTitle>
           </CardHeader>
           <CardContent className="-mt-4">
-            {/* Grid dengan 3 kolom untuk layout */}
             <div className="grid grid-cols-3 gap-x-4 gap-y-2">
-              {/* Baris 1: Judul untuk setiap kolom */}
-              <p className="font-semibold text-[#323232] text-[12px]">
-                Issues
-              </p>
-              <p className="font-semibold text-[#323232] text-[12px]">
-                Done
-              </p>
+              <p className="font-semibold text-[#323232] text-[12px]">Issues</p>
+              <p className="font-semibold text-[#323232] text-[12px]">Done</p>
               <p className="font-semibold text-[#323232] text-[12px]">
                 In Progress
               </p>
-              {/* Baris 2: Blok data untuk setiap kolom */}
-              {/* Blok Issues */}
+
               <div className="w-[101.67px] flex flex-col items-center justify-center space-y-1 rounded-lg bg-[#3892F3] p-3 text-white h-[52px]">
-                {/* Angka utama */}
                 <p className="text-[13px] font-semibold">30</p>
               </div>
-              {/* Blok Done */}
+
               <div className="w-[101.67px] flex flex-col items-center justify-center space-y-1 rounded-lg bg-[#10B981] p-3 text-white h-[52px]">
-                {/* Angka utama */}
                 <p className="text-[13px] font-semibold">10</p>
               </div>
-              {/* Blok In Progress */}
-              <div className="w-[101.67px] flex flex-col items-center justify-center rounded-lg bg-amber-500 text-white h-[52px]">
-                {/* Angka utama */}
+
+              <div className="w-[101.67px] flex flex-col items-center justify-center rounded-lg bg-[#F59E0B] text-white h-[52px]">
                 <p className="text-[13px] font-semibold text-center">20</p>
                 <div className="flex items-center">
                   <Info className="h-2 w-2" />
