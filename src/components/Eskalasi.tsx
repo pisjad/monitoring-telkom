@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -46,13 +46,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 // Tipe data untuk setiap baris issue
@@ -91,7 +84,7 @@ const initialFormState: NewIssueFormState = {
   picTreg: "",
   responTreg: "Belum ada respon.",
   progress: 0,
-  status: "Done",
+  status: "OGP",
   tanggal: new Date(),
   startDate: new Date(),
   endDate: new Date(),
@@ -110,7 +103,51 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
   const [issues, setIssues] = useState<Issue[]>(initialData);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [newIssue, setNewIssue] = useState<NewIssueFormState>(initialFormState);
+  const [editingIssue, setEditingIssue] = useState<Issue | null>(null);
+  const [followUpData, setFollowUpData] = useState({
+    responTreg: "",
+    progress: 0,
+  });
 
+  // Untuk Rekap Total
+  const totalIssues = issues.length;
+  const doneIssues = issues.filter((issue) => issue.status === "Done").length;
+  const inProgressIssues = totalIssues - doneIssues;
+
+  // Handle untuk Follow UP
+  useEffect(() => {
+    if (editingIssue) {
+      setFollowUpData({
+        responTreg: editingIssue.responTreg,
+        progress: editingIssue.progress,
+      });
+    }
+  }, [editingIssue]);
+
+  const handleFollowUpChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFollowUpData((prev) => ({
+      ...prev,
+      [name]: name === "progress" ? parseInt(value) || 0 : value,
+    }));
+  };
+
+  const handleFollowUpSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingIssue) return;
+
+    // Update data di dalam array `issues`
+    setIssues((currentIssues) =>
+      currentIssues.map((issue) =>
+        issue.no === editingIssue.no ? { ...issue, ...followUpData } : issue
+      )
+    );
+    setEditingIssue(null);
+  };
+
+  // Untuk Tanggal
   const [openPopovers, setOpenPopovers] = useState({
     tanggal: false,
     startDate: false,
@@ -174,6 +211,19 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
     }
   };
 
+  const getProgressColorClass = (progress: number) => {
+    if (progress === 100) {
+      return "text-[#159168]";
+    }
+    if (progress >= 67) {
+      return "text-blue-600";
+    }
+    if (progress >= 34) {
+      return "text-orange-500";
+    }
+    return "text-red-600";
+  };
+
   return (
     <div className="font-sans">
       <Card className="rounded-lg">
@@ -205,6 +255,7 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                           name="week"
                           value={newIssue.week}
                           onChange={handleFormChange}
+                          placeholder="Isikan week..."
                           required
                         />
                       </div>
@@ -261,6 +312,7 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                           name="witel"
                           value={newIssue.witel}
                           onChange={handleFormChange}
+                          placeholder="Isikan witel..."
                           required
                         />
                       </div>
@@ -276,6 +328,7 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                           name="issueDetail"
                           value={newIssue.issueDetail}
                           onChange={handleFormChange}
+                          placeholder="Isikan issue..."
                           required
                           style={{ height: 95 }}
                         />
@@ -287,6 +340,8 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                           name="actionPlanM2"
                           value={newIssue.actionPlanM2}
                           onChange={handleFormChange}
+                          placeholder="Isikan action plan M2..."
+                          required
                           style={{ height: 95 }}
                         />
                       </div>
@@ -297,6 +352,8 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                           name="actionPlanM3"
                           value={newIssue.actionPlanM3}
                           onChange={handleFormChange}
+                          placeholder="Isikan action plan M3..."
+                          required
                           style={{ height: 95 }}
                         />
                       </div>
@@ -307,6 +364,8 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                           name="actionPlanM4"
                           value={newIssue.actionPlanM4}
                           onChange={handleFormChange}
+                          placeholder="Isikan action plan M2..."
+                          required
                           style={{ height: 95 }}
                         />
                       </div>
@@ -408,6 +467,8 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                           name="weight"
                           value={newIssue.weight}
                           onChange={handleFormChange}
+                          placeholder="Isikan weight..."
+                          required
                         />
                       </div>
                     </div>
@@ -420,6 +481,8 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                           name="uicWitel"
                           value={newIssue.uicWitel}
                           onChange={handleFormChange}
+                          placeholder="Isikan UIC witel..."
+                          required
                         />
                       </div>
                       <div>
@@ -429,6 +492,8 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                           name="supportNeeded"
                           value={newIssue.supportNeeded}
                           onChange={handleFormChange}
+                          placeholder="Isikan support needed..."
+                          required
                         />
                       </div>
                       <div>
@@ -438,6 +503,7 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                           name="picTreg"
                           value={newIssue.picTreg}
                           onChange={handleFormChange}
+                          placeholder="Isikan PIC TREG..."
                           required
                         />
                       </div>
@@ -469,11 +535,19 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
 
                   <DialogFooter>
                     <DialogClose asChild>
-                      <Button type="button" variant="secondary">
+                      <Button
+                        variant="outline"
+                        className="bg-[#72747a] text-white hover:bg-[#72747a]/80"
+                      >
                         Batal
                       </Button>
                     </DialogClose>
-                    <Button type="submit">Simpan Issue</Button>
+                    <Button
+                      type="submit"
+                      className="bg-[#4E80EE] text-white hover:bg-[#4E80EE]/80"
+                    >
+                      Simpan Issue
+                    </Button>
                   </DialogFooter>
                 </form>
               </DialogContent>
@@ -620,16 +694,16 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                             </AlertDialogTitle>
                           </AlertDialogHeader>
 
-                          <div className="text-[12px] font-sans font-medium text-black py-1 max-h-[60vh] overflow-y-auto scroll-smooth">
-                            <ol className="list-decimal list-inside space-y-3">
+                          <div className="text-[12px] font-sans font-medium text-black py-1 max-h-[60vh] overflow-y-auto scroll-smooth break-words">
+                            <div className="space-y-2">
                               {issue.responTreg
                                 .split("\n")
                                 .map((line, index) => (
-                                  <li key={index}>
+                                  <p key={index}>
                                     {line.replace(/^\d+\.\s*/, "")}
-                                  </li>
+                                  </p>
                                 ))}
-                            </ol>
+                            </div>
                           </div>
 
                           <AlertDialogFooter>
@@ -644,7 +718,11 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                       </AlertDialog>
                     </TableCell>
 
-                    <TableCell className="text-center text-[#159168] font-bold">
+                    <TableCell
+                      className={`text-center font-bold ${getProgressColorClass(
+                        issue.progress
+                      )}`}
+                    >
                       {issue.progress}%
                     </TableCell>
 
@@ -682,6 +760,7 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                       <Button
                         size="sm"
                         className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/80 hover:text-white"
+                        onClick={() => setEditingIssue(issue)}
                       >
                         Follow Up
                       </Button>
@@ -694,7 +773,7 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
         </CardContent>
       </Card>
 
-      {/* Kartu Rekap Total dalam satu Card */}
+      {/* Kartu Rekap Total */}
       <div className="mt-6" style={{ width: "361px", height: "131px" }}>
         <Card>
           <CardHeader className="-mt-2">
@@ -708,16 +787,21 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                 In Progress
               </p>
 
+              {/* Blok Issues */}
               <div className="w-[101.67px] flex flex-col items-center justify-center space-y-1 rounded-lg bg-[#3892F3] p-3 text-white h-[52px]">
-                <p className="text-[13px] font-semibold">30</p>
+                <p className="text-[13px] font-semibold">{totalIssues}</p>
               </div>
 
+              {/* Blok Done */}
               <div className="w-[101.67px] flex flex-col items-center justify-center space-y-1 rounded-lg bg-[#10B981] p-3 text-white h-[52px]">
-                <p className="text-[13px] font-semibold">10</p>
+                <p className="text-[13px] font-semibold">{doneIssues}</p>
               </div>
 
+              {/* Blok In Progress */}
               <div className="w-[101.67px] flex flex-col items-center justify-center rounded-lg bg-[#F59E0B] text-white h-[52px]">
-                <p className="text-[13px] font-semibold text-center">20</p>
+                <p className="text-[13px] font-semibold text-center">
+                  {inProgressIssues}
+                </p>
                 <div className="flex items-center">
                   <Info className="h-2 w-2" />
                   <span className="ml-1 text-[8px]">Sedang dilakukan</span>
@@ -727,6 +811,63 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Form Follow Up */}
+      <Dialog
+        open={!!editingIssue}
+        onOpenChange={(isOpen) => !isOpen && setEditingIssue(null)}
+      >
+        <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto scrollbar-hide bg-white">
+          <DialogHeader>
+            <DialogTitle>Follow Up Issue No: {editingIssue?.no}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleFollowUpSubmit}>
+            <div className="grid gap-4 py-4">
+              <div>
+                <Label htmlFor="responTreg">
+                  Respon Support Needed dari TREG
+                </Label>
+                <Textarea
+                  id="responTreg"
+                  name="responTreg"
+                  value={followUpData.responTreg}
+                  onChange={handleFollowUpChange}
+                  placeholder="Isikan respon..."
+                  style={{ height: 95 }}
+                />
+              </div>
+              <div>
+                <Label htmlFor="progress">Progress (%)</Label>
+                <Input
+                  id="progress"
+                  name="progress"
+                  type="number"
+                  min="0"
+                  max="100"
+                  value={followUpData.progress}
+                  onChange={handleFollowUpChange}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button
+                  variant="outline"
+                  className="bg-[#72747a] text-white hover:bg-[#72747a]/80"
+                >
+                  Batal
+                </Button>
+              </DialogClose>
+              <Button
+                type="submit"
+                className="bg-[#4E80EE] text-white hover:bg-[#4E80EE]/80"
+              >
+                Simpan
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
