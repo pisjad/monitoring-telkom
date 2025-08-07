@@ -9,6 +9,7 @@ import { Plus, Info, X, ChevronDown } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
+import { supabase } from "@/lib/supabaseClient";
 import {
   Popover,
   PopoverContent,
@@ -60,7 +61,7 @@ export type Issue = {
   actionPlanM4: string;
   startDate: string;
   endDate: string;
-  weight: string;
+  weight: number;
   uicWitel: string;
   eskalasiTreg: "Y" | "T";
   supportNeeded: string;
@@ -77,7 +78,7 @@ const initialFormState: NewIssueFormState = {
   actionPlanM2: "",
   actionPlanM3: "",
   actionPlanM4: "",
-  weight: "",
+  weight: 0,
   uicWitel: "",
   eskalasiTreg: "T",
   supportNeeded: "",
@@ -99,8 +100,9 @@ type NewIssueFormState = Omit<
   endDate?: Date;
 };
 
-export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
-  const [issues, setIssues] = useState<Issue[]>(initialData);
+export const Eskalasi = () => {
+  const [issues, setIssues] = useState<Issue[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [newIssue, setNewIssue] = useState<NewIssueFormState>(initialFormState);
   const [editingIssue, setEditingIssue] = useState<Issue | null>(null);
@@ -113,6 +115,25 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
   const totalIssues = issues.length;
   const doneIssues = issues.filter((issue) => issue.status === "Done").length;
   const inProgressIssues = totalIssues - doneIssues;
+
+  useEffect(() => {
+    const fetchIssues = async () => {
+      setIsLoading(true);
+      const { data, error } = await supabase
+        .from("issues")
+        .select("*")
+        .order("no", { ascending: true }); // Mengurutkan berdasarkan 'no'
+
+      if (error) {
+        console.error("Error fetching issues:", error);
+      } else {
+        setIssues(data as Issue[]);
+      }
+      setIsLoading(false);
+    };
+
+    fetchIssues();
+  }, []);
 
   // Handle untuk Follow UP
   useEffect(() => {
@@ -134,17 +155,19 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
     }));
   };
 
-  const handleFollowUpSubmit = (e: React.FormEvent) => {
+  const handleFollowUpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingIssue) return;
+    const finalFollowUpData: Partial<Issue> = { ...followUpData };
 
-    // Update data di dalam array `issues`
-    setIssues((currentIssues) =>
-      currentIssues.map((issue) =>
-        issue.no === editingIssue.no ? { ...issue, ...followUpData } : issue
-      )
-    );
-    setEditingIssue(null);
+    const { data, error } = await supabase.from("issues").update(finalFollowUpData).eq("no", editingIssue.no).select();
+    if (error) {
+      console.error("Error updating issue:", error.message);
+      alert("Gagal update!");
+    } else if (data) {
+      setIssues((current) => current.map((issue) => (issue.no === editingIssue.no ? data[0] : issue)));
+      setEditingIssue(null);
+    }
   };
 
   // Untuk Tanggal
@@ -178,28 +201,37 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
   };
 
   // Handler untuk submit form
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const finalNewIssue: Issue = {
-      ...initialFormState,
-      ...newIssue,
-      no: (issues[issues.length - 1]?.no || 10) + 1,
-      tanggal: format(newIssue.tanggal!, "dd/MM/yyyy"),
-      startDate: format(newIssue.startDate!, "dd/MM/yyyy"),
-      endDate: format(newIssue.endDate!, "dd/MM/yyyy"),
-    } as Issue;
-    setIssues((prevIssues) => [...prevIssues, finalNewIssue]);
-    setIsFormOpen(false);
-    setNewIssue(initialFormState);
+    const dataToSubmit = { ...newIssue };
+    const noBaru = (issues.length ? issues[issues.length - 1].no + 1 : 1);
+    const finalNewIssue = { ...initialFormState, ...dataToSubmit, no: noBaru, tanggal: format(dataToSubmit.tanggal!, "dd/MM/yyyy"), startDate: format(dataToSubmit.startDate!, "dd/MM/yyyy"), endDate: format(dataToSubmit.endDate!, "dd/MM/yyyy"), } as Issue;
+
+    const { data, error } = await supabase.from("issues").insert(finalNewIssue).select();
+    if (error) {
+      console.error("Error adding issue:", error.message);
+      alert("Gagal menambahkan issue!");
+    } else if (data) {
+      setIssues((prevIssues) => [...prevIssues, data[0]]);
+      setIsFormOpen(false);
+      setNewIssue(initialFormState);
+    }
   };
 
-  const handleStatusChange = (issueId: number, newStatus: Issue["status"]) => {
-    setIssues((currentIssues) =>
-      currentIssues.map((issue) =>
-        issue.no === issueId ? { ...issue, status: newStatus } : issue
-      )
-    );
+  const handleStatusChange = async (issueId: number, newStatus: Issue["status"]) => {
+    const { data, error } = await supabase
+      .from('issues')
+      .update({ status: newStatus })
+      .eq('no', issueId)
+      .select();
+    
+    if (error) {
+        console.error("Error updating status:", error)
+    } else if (data) {
+        setIssues(current => current.map(issue => (issue.no === issueId ? data[0] : issue)));
+    }
   };
+
   const getStatusBadgeStyle = (status: Issue["status"]) => {
     switch (status) {
       case "Done":
@@ -223,6 +255,10 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
     }
     return "text-red-600";
   };
+
+  if (isLoading) {
+    return <div className="p-8">Memuat data dari Supabase...</div>;
+  }
 
   return (
     <div className="font-sans">
@@ -649,7 +685,7 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
                       {issue.endDate}
                     </TableCell>
                     <TableCell className="text-center">
-                      {issue.weight}
+                      {issue.weight}%
                     </TableCell>
                     <TableCell className="text-center">
                       {issue.uicWitel}
@@ -696,7 +732,7 @@ export const Eskalasi = ({ initialData }: { initialData: Issue[] }) => {
 
                           <div className="text-[12px] font-sans font-medium text-black py-1 max-h-[60vh] overflow-y-auto scroll-smooth break-words">
                             <div className="space-y-2">
-                              {issue.responTreg
+                              {(issue.responTreg || "")
                                 .split("\n")
                                 .map((line, index) => (
                                   <p key={index}>
