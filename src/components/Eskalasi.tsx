@@ -160,12 +160,18 @@ export const Eskalasi = () => {
     if (!editingIssue) return;
     const finalFollowUpData: Partial<Issue> = { ...followUpData };
 
-    const { data, error } = await supabase.from("issues").update(finalFollowUpData).eq("no", editingIssue.no).select();
+    const { data, error } = await supabase
+      .from("issues")
+      .update(finalFollowUpData)
+      .eq("no", editingIssue.no)
+      .select();
     if (error) {
       console.error("Error updating issue:", error.message);
       alert("Gagal update!");
     } else if (data) {
-      setIssues((current) => current.map((issue) => (issue.no === editingIssue.no ? data[0] : issue)));
+      setIssues((current) =>
+        current.map((issue) => (issue.no === editingIssue.no ? data[0] : issue))
+      );
       setEditingIssue(null);
     }
   };
@@ -204,10 +210,20 @@ export const Eskalasi = () => {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const dataToSubmit = { ...newIssue };
-    const noBaru = (issues.length ? issues[issues.length - 1].no + 1 : 1);
-    const finalNewIssue = { ...initialFormState, ...dataToSubmit, no: noBaru, tanggal: format(dataToSubmit.tanggal!, "dd/MM/yyyy"), startDate: format(dataToSubmit.startDate!, "dd/MM/yyyy"), endDate: format(dataToSubmit.endDate!, "dd/MM/yyyy"), } as Issue;
+    const noBaru = issues.length ? issues[issues.length - 1].no + 1 : 1;
+    const finalNewIssue = {
+      ...initialFormState,
+      ...dataToSubmit,
+      no: noBaru,
+      tanggal: format(dataToSubmit.tanggal!, "dd/MM/yyyy"),
+      startDate: format(dataToSubmit.startDate!, "dd/MM/yyyy"),
+      endDate: format(dataToSubmit.endDate!, "dd/MM/yyyy"),
+    } as Issue;
 
-    const { data, error } = await supabase.from("issues").insert(finalNewIssue).select();
+    const { data, error } = await supabase
+      .from("issues")
+      .insert(finalNewIssue)
+      .select();
     if (error) {
       console.error("Error adding issue:", error.message);
       alert("Gagal menambahkan issue!");
@@ -218,17 +234,22 @@ export const Eskalasi = () => {
     }
   };
 
-  const handleStatusChange = async (issueId: number, newStatus: Issue["status"]) => {
+  const handleStatusChange = async (
+    issueId: number,
+    newStatus: Issue["status"]
+  ) => {
     const { data, error } = await supabase
-      .from('issues')
+      .from("issues")
       .update({ status: newStatus })
-      .eq('no', issueId)
+      .eq("no", issueId)
       .select();
-    
+
     if (error) {
-        console.error("Error updating status:", error)
+      console.error("Error updating status:", error);
     } else if (data) {
-        setIssues(current => current.map(issue => (issue.no === issueId ? data[0] : issue)));
+      setIssues((current) =>
+        current.map((issue) => (issue.no === issueId ? data[0] : issue))
+      );
     }
   };
 
@@ -591,221 +612,211 @@ export const Eskalasi = () => {
           </div>
         </CardHeader>
 
-        <CardContent>
-          <div className="overflow-x-auto">
-            <Table className="gap-x-1 gap-y-1">
-              <TableHeader className="bg-[#E4F2FF]">
-                <TableRow className="h-[88px] text-[12px] font-medium">
-                  <TableHead className="text-center">No</TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">
-                    Week
-                  </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">
-                    Tanggal
-                  </TableHead>
-                  <TableHead className="text-center min-w-[136px]">
-                    Witel
-                  </TableHead>
-                  <TableHead className="text-center min-w-[220px]">
-                    3 BIG ISSUE ESKALASI <br /> TREG/EMRM/BUD/BUS
-                  </TableHead>
-                  <TableHead className="text-center min-w-[220px]">
-                    Action Plan M2 Jun
-                  </TableHead>
-                  <TableHead className="text-center min-w-[220px]">
-                    Action Plan M3 Jun
-                  </TableHead>
-                  <TableHead className="text-center min-w-[220px]">
-                    Action Plan M4 Jun
-                  </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">
-                    Start Date <br /> (DD/MM/YYYY)
-                  </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">
-                    End Date <br /> (DD/MM/YYYY)
-                  </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">
-                    Weight
-                  </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">
-                    UIC Witel
-                  </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">
-                    Eskalasi ke TREG <br /> (Y/T)
-                  </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">
-                    Support Needed ke <br /> TREG/EBIS/BUD/AP
-                  </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">
-                    PIC TREG
-                  </TableHead>
-                  <TableHead className="text-center min-w-[109px]">
-                    Respon Support <br />
-                    Needed dari TREG
-                  </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">
-                    Progres (%)
-                  </TableHead>
-                  <TableHead className="text-center min-w-[88.36px]">
-                    Status <br /> (OGP/Done)
-                  </TableHead>
-                  <TableHead className="text-center min-w-[69px]">
-                    Follow Up
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
+        <CardContent className="max-h-[550px] overflow-y-auto scrollbar-hide">
+          <Table className="gap-x-1 gap-y-1">
+            <TableHeader className="bg-[#E4F2FF]">
+              <TableRow className="h-[88px] text-[12px] font-medium">
+                <TableHead className="text-center">No</TableHead>
+                <TableHead className="text-center min-w-[88.36px]">
+                  Week
+                </TableHead>
+                <TableHead className="text-center min-w-[88.36px]">
+                  Tanggal
+                </TableHead>
+                <TableHead className="text-center min-w-[136px]">
+                  Witel
+                </TableHead>
+                <TableHead className="text-center min-w-[220px]">
+                  3 BIG ISSUE ESKALASI <br /> TREG/EMRM/BUD/BUS
+                </TableHead>
+                <TableHead className="text-center min-w-[220px]">
+                  Action Plan M2 Jun
+                </TableHead>
+                <TableHead className="text-center min-w-[220px]">
+                  Action Plan M3 Jun
+                </TableHead>
+                <TableHead className="text-center min-w-[220px]">
+                  Action Plan M4 Jun
+                </TableHead>
+                <TableHead className="text-center min-w-[88.36px]">
+                  Start Date <br /> (DD/MM/YYYY)
+                </TableHead>
+                <TableHead className="text-center min-w-[88.36px]">
+                  End Date <br /> (DD/MM/YYYY)
+                </TableHead>
+                <TableHead className="text-center min-w-[88.36px]">
+                  Weight
+                </TableHead>
+                <TableHead className="text-center min-w-[88.36px]">
+                  UIC Witel
+                </TableHead>
+                <TableHead className="text-center min-w-[88.36px]">
+                  Eskalasi ke TREG <br /> (Y/T)
+                </TableHead>
+                <TableHead className="text-center min-w-[88.36px]">
+                  Support Needed ke <br /> TREG/EBIS/BUD/AP
+                </TableHead>
+                <TableHead className="text-center min-w-[88.36px]">
+                  PIC TREG
+                </TableHead>
+                <TableHead className="text-center min-w-[109px]">
+                  Respon Support <br />
+                  Needed dari TREG
+                </TableHead>
+                <TableHead className="text-center min-w-[88.36px]">
+                  Progres (%)
+                </TableHead>
+                <TableHead className="text-center min-w-[88.36px]">
+                  Status <br /> (OGP/Done)
+                </TableHead>
+                <TableHead className="text-center min-w-[69px]">
+                  Follow Up
+                </TableHead>
+              </TableRow>
+            </TableHeader>
 
-              <TableBody className="font-medium text-[12px]">
-                {issues.map((issue) => (
-                  <TableRow key={issue.no}>
-                    <TableCell className="text-center">{issue.no}</TableCell>
-                    <TableCell className="text-center">{issue.week}</TableCell>
-                    <TableCell className="text-center">
-                      {issue.tanggal}
-                    </TableCell>
-                    <TableCell className="text-center">{issue.witel}</TableCell>
-                    <TableCell className="max-w-sm">
-                      <div className="whitespace-pre-wrap text-center">
-                        {issue.issueDetail}
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-center whitespace-pre-wrap">
-                      {issue.actionPlanM2}
-                    </TableCell>
-                    <TableCell className="text-center whitespace-pre-wrap">
-                      {issue.actionPlanM3}
-                    </TableCell>
-                    <TableCell className="text-center whitespace-pre-wrap">
-                      {issue.actionPlanM4}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {issue.startDate}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {issue.endDate}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {issue.weight}%
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {issue.uicWitel}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {issue.eskalasiTreg}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {issue.supportNeeded}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {issue.picTreg}
-                    </TableCell>
+            <TableBody className="font-medium text-[12px]">
+              {issues.map((issue) => (
+                <TableRow key={issue.no}>
+                  <TableCell className="text-center">{issue.no}</TableCell>
+                  <TableCell className="text-center">{issue.week}</TableCell>
+                  <TableCell className="text-center">{issue.tanggal}</TableCell>
+                  <TableCell className="text-center">{issue.witel}</TableCell>
+                  <TableCell className="max-w-sm">
+                    <div className="whitespace-pre-wrap text-center">
+                      {issue.issueDetail}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-center whitespace-pre-wrap">
+                    {issue.actionPlanM2}
+                  </TableCell>
+                  <TableCell className="text-center whitespace-pre-wrap">
+                    {issue.actionPlanM3}
+                  </TableCell>
+                  <TableCell className="text-center whitespace-pre-wrap">
+                    {issue.actionPlanM4}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {issue.startDate}
+                  </TableCell>
+                  <TableCell className="text-center">{issue.endDate}</TableCell>
+                  <TableCell className="text-center">{issue.weight}%</TableCell>
+                  <TableCell className="text-center">
+                    {issue.uicWitel}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {issue.eskalasiTreg}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {issue.supportNeeded}
+                  </TableCell>
+                  <TableCell className="text-center">{issue.picTreg}</TableCell>
 
-                    <TableCell className="text-center">
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/80 hover:text-white"
-                          >
-                            Tampilkan Respon
-                          </Button>
-                        </AlertDialogTrigger>
+                  <TableCell className="text-center">
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/80 hover:text-white"
+                        >
+                          Tampilkan Respon
+                        </Button>
+                      </AlertDialogTrigger>
 
-                        <AlertDialogContent className="sm:max-w-2xl bg-white text-black border-gray-300">
-                          <button
-                            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100"
-                            onClick={() => {
-                              document
-                                .getElementById("alert-dialog-cancel-button")
-                                ?.click();
-                            }}
-                          >
-                            <X className="h-5 w-5" />
-                          </button>
+                      <AlertDialogContent className="sm:max-w-2xl bg-white text-black border-gray-300">
+                        <button
+                          className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100"
+                          onClick={() => {
+                            document
+                              .getElementById("alert-dialog-cancel-button")
+                              ?.click();
+                          }}
+                        >
+                          <X className="h-5 w-5" />
+                        </button>
 
-                          <AlertDialogHeader className="pb-3 border-b border-gray-500">
-                            <AlertDialogTitle className="text-black font-semibold font-sans">
-                              Respon TREG
-                            </AlertDialogTitle>
-                          </AlertDialogHeader>
+                        <AlertDialogHeader className="pb-3 border-b border-gray-500">
+                          <AlertDialogTitle className="text-black font-semibold font-sans">
+                            Respon TREG
+                          </AlertDialogTitle>
+                        </AlertDialogHeader>
 
-                          <div className="text-[12px] font-sans font-medium text-black py-1 max-h-[60vh] overflow-y-auto scroll-smooth break-words">
-                            <div className="space-y-2">
-                              {(issue.responTreg || "")
-                                .split("\n")
-                                .map((line, index) => (
-                                  <p key={index}>
-                                    {line.replace(/^\d+\.\s*/, "")}
-                                  </p>
-                                ))}
-                            </div>
+                        <div className="text-[12px] font-sans font-medium text-black py-1 max-h-[60vh] overflow-y-auto scroll-smooth break-words">
+                          <div className="space-y-2">
+                            {(issue.responTreg || "")
+                              .split("\n")
+                              .map((line, index) => (
+                                <p key={index}>
+                                  {line.replace(/^\d+\.\s*/, "")}
+                                </p>
+                              ))}
                           </div>
+                        </div>
 
-                          <AlertDialogFooter>
-                            <AlertDialogCancel
-                              id="alert-dialog-cancel-button"
-                              className="hidden"
-                            >
-                              Tutup
-                            </AlertDialogCancel>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                    </TableCell>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel
+                            id="alert-dialog-cancel-button"
+                            className="hidden"
+                          >
+                            Tutup
+                          </AlertDialogCancel>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </TableCell>
 
-                    <TableCell
-                      className={`text-center font-bold ${getProgressColorClass(
-                        issue.progress
-                      )}`}
+                  <TableCell
+                    className={`text-center font-bold ${getProgressColorClass(
+                      issue.progress
+                    )}`}
+                  >
+                    {issue.progress}%
+                  </TableCell>
+
+                  <TableCell>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={`w-[65px] h-[24px] p-1.5 text-[12px] font-medium gap-1 ${getStatusBadgeStyle(
+                            issue.status
+                          )}`}
+                        >
+                          {issue.status}
+                          <ChevronDown className="w-4 h-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="p-1 min-w-0 w-auto">
+                        <DropdownMenuItem
+                          className="justify-center text-xs"
+                          onClick={() => handleStatusChange(issue.no, "Done")}
+                        >
+                          Done
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          className="justify-center text-xs"
+                          onClick={() => handleStatusChange(issue.no, "OGP")}
+                        >
+                          OGP
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+
+                  <TableCell className="text-center">
+                    <Button
+                      size="sm"
+                      className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/80 hover:text-white"
+                      onClick={() => setEditingIssue(issue)}
                     >
-                      {issue.progress}%
-                    </TableCell>
-
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className={`w-[65px] h-[24px] p-1.5 text-[12px] font-medium gap-1 ${getStatusBadgeStyle(
-                              issue.status
-                            )}`}
-                          >
-                            {issue.status}
-                            <ChevronDown className="w-4 h-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="p-1 min-w-0 w-auto">
-                          <DropdownMenuItem
-                            className="justify-center text-xs"
-                            onClick={() => handleStatusChange(issue.no, "Done")}
-                          >
-                            Done
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            className="justify-center text-xs"
-                            onClick={() => handleStatusChange(issue.no, "OGP")}
-                          >
-                            OGP
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-
-                    <TableCell className="text-center">
-                      <Button
-                        size="sm"
-                        className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/80 hover:text-white"
-                        onClick={() => setEditingIssue(issue)}
-                      >
-                        Follow Up
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
+                      Follow Up
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </CardContent>
       </Card>
 
@@ -824,17 +835,17 @@ export const Eskalasi = () => {
               </p>
 
               {/* Blok Issues */}
-              <div className="w-[101.67px] flex flex-col items-center justify-center space-y-1 rounded-lg bg-[#3892F3] p-3 text-white h-[52px]">
+              <div className="w-[101.67px] flex flex-col items-center justify-center space-y-1 rounded-lg bg-[#3892F3] p-3 text-black h-[52px]">
                 <p className="text-[13px] font-semibold">{totalIssues}</p>
               </div>
 
               {/* Blok Done */}
-              <div className="w-[101.67px] flex flex-col items-center justify-center space-y-1 rounded-lg bg-[#10B981] p-3 text-white h-[52px]">
+              <div className="w-[101.67px] flex flex-col items-center justify-center space-y-1 rounded-lg bg-[#10B981] p-3 text-black h-[52px]">
                 <p className="text-[13px] font-semibold">{doneIssues}</p>
               </div>
 
               {/* Blok In Progress */}
-              <div className="w-[101.67px] flex flex-col items-center justify-center rounded-lg bg-[#F59E0B] text-white h-[52px]">
+              <div className="w-[101.67px] flex flex-col items-center justify-center rounded-lg bg-[#F59E0B] text-black h-[52px]">
                 <p className="text-[13px] font-semibold text-center">
                   {inProgressIssues}
                 </p>
