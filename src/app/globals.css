@@ -55,15 +55,20 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground font-sans;
   }
 }
 
-.scrollbar-hide::-webkit-scrollbar { 
+.scrollbar-hide::-webkit-scrollbar {
   display: none;
-} 
-.scrollbar-hide { 
-  scrollbar-width: none; 
 }
 
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
+body :global(.plain-draggable-dragging) {
+  cursor: grabbing !important;
+}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,14 +24,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -111,7 +103,34 @@ export const Eskalasi = () => {
     progress: 0,
   });
 
-  // Untuk Rekap Total
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeft(scrollContainerRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 1; 
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
   const totalIssues = issues.length;
   const doneIssues = issues.filter((issue) => issue.status === "Done").length;
   const inProgressIssues = totalIssues - doneIssues;
@@ -135,7 +154,6 @@ export const Eskalasi = () => {
     fetchIssues();
   }, []);
 
-  // Handle untuk Follow UP
   useEffect(() => {
     if (editingIssue) {
       setFollowUpData({
@@ -176,14 +194,12 @@ export const Eskalasi = () => {
     }
   };
 
-  // Untuk Tanggal
   const [openPopovers, setOpenPopovers] = useState({
     tanggal: false,
     startDate: false,
     endDate: false,
   });
 
-  // Handler untuk mengubah data di form
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -191,12 +207,10 @@ export const Eskalasi = () => {
     setNewIssue((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handler khusus untuk komponen Select
   const handleSelectChange = (name: keyof Issue, value: string) => {
     setNewIssue((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handler untuk mengubah tanggal
   const handleDateChange = (
     name: "tanggal" | "startDate" | "endDate",
     date: Date | undefined
@@ -206,7 +220,6 @@ export const Eskalasi = () => {
     }
   };
 
-  // Handler untuk submit form
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const dataToSubmit = { ...newIssue };
@@ -283,7 +296,7 @@ export const Eskalasi = () => {
 
   return (
     <div className="font-sans">
-      <Card className="rounded-lg">
+      <Card className="rounded-lg px-6">
         <CardHeader>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <CardTitle className="text-[16px] font-semibold text-gray-800">
@@ -612,113 +625,92 @@ export const Eskalasi = () => {
           </div>
         </CardHeader>
 
-        <CardContent className="max-h-[550px] overflow-y-auto scrollbar-hide">
-          <Table className="gap-x-1 gap-y-1">
-            <TableHeader className="bg-[#E4F2FF]">
-              <TableRow className="h-[88px] text-[12px] font-medium">
-                <TableHead className="text-center">No</TableHead>
-                <TableHead className="text-center min-w-[88.36px]">
-                  Week
-                </TableHead>
-                <TableHead className="text-center min-w-[88.36px]">
-                  Tanggal
-                </TableHead>
-                <TableHead className="text-center min-w-[136px]">
-                  Witel
-                </TableHead>
-                <TableHead className="text-center min-w-[220px]">
+        <CardContent
+          ref={scrollContainerRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          className={`max-h-[480px] overflow-x-auto scrollbar-hide font-sans ${
+            isDragging ? "cursor-grabbing" : "cursor-grab"
+          }`}
+        >
+          <table className="w-full border-collapse text-center gap-x-3 gap-y-3 leading-relaxed scroll-smooth">
+            <thead className="bg-[#E4F2FF] sticky top-0 z-10">
+              <tr className="h-[88px] text-[12px] border-b-2">
+                <th className="min-w-[36px] font-medium font-sans">No</th>
+                <th className="min-w-[88.36px] font-medium font-sans">Week</th>
+                <th className="min-w-[88.36px] font-medium font-sans">Tanggal</th>
+                <th className="min-w-[136px] font-medium font-sans">Witel</th>
+                <th className="min-w-[220px] font-medium font-sans">
                   3 BIG ISSUE ESKALASI <br /> TREG/EMRM/BUD/BUS
-                </TableHead>
-                <TableHead className="text-center min-w-[220px]">
-                  Action Plan M2 Jun
-                </TableHead>
-                <TableHead className="text-center min-w-[220px]">
-                  Action Plan M3 Jun
-                </TableHead>
-                <TableHead className="text-center min-w-[220px]">
-                  Action Plan M4 Jun
-                </TableHead>
-                <TableHead className="text-center min-w-[88.36px]">
+                </th>
+                <th className="min-w-[220px] font-medium font-sans">Action Plan M2 Jun</th>
+                <th className="min-w-[220px] font-medium font-sans">Action Plan M3 Jun</th>
+                <th className="min-w-[220px] font-medium font-sans">Action Plan M4 Jun</th>
+                <th className="min-w-[88.36px] px-2 font-medium font-sans">
                   Start Date <br /> (DD/MM/YYYY)
-                </TableHead>
-                <TableHead className="text-center min-w-[88.36px]">
+                </th>
+                <th className="min-w-[88.36px] font-medium font-sans">
                   End Date <br /> (DD/MM/YYYY)
-                </TableHead>
-                <TableHead className="text-center min-w-[88.36px]">
-                  Weight
-                </TableHead>
-                <TableHead className="text-center min-w-[88.36px]">
-                  UIC Witel
-                </TableHead>
-                <TableHead className="text-center min-w-[88.36px]">
+                </th>
+                <th className="min-w-[88.36px] font-medium font-sans">Weight</th>
+                <th className="min-w-[88.36px] font-medium font-sans">UIC Witel</th>
+                <th className="min-w-[88.36px] font-medium font-sans">
                   Eskalasi ke TREG <br /> (Y/T)
-                </TableHead>
-                <TableHead className="text-center min-w-[88.36px]">
+                </th>
+                <th className="min-w-[88.36px] font-medium font-sans">
                   Support Needed ke <br /> TREG/EBIS/BUD/AP
-                </TableHead>
-                <TableHead className="text-center min-w-[88.36px]">
-                  PIC TREG
-                </TableHead>
-                <TableHead className="text-center min-w-[109px]">
+                </th>
+                <th className="min-w-[88.36px] font-medium font-sans">PIC TREG</th>
+                <th className="min-w-[109px] font-medium font-sans">
                   Respon Support <br />
                   Needed dari TREG
-                </TableHead>
-                <TableHead className="text-center min-w-[88.36px]">
-                  Progres (%)
-                </TableHead>
-                <TableHead className="text-center min-w-[88.36px]">
+                </th>
+                <th className="min-w-[88.36px] font-medium font-sans">Progres (%)</th>
+                <th className="min-w-[88.36px] font-medium font-sans">
                   Status <br /> (OGP/Done)
-                </TableHead>
-                <TableHead className="text-center min-w-[69px]">
-                  Follow Up
-                </TableHead>
-              </TableRow>
-            </TableHeader>
+                </th>
+                <th className="min-w-[69px] font-medium font-sans">Follow Up</th>
+              </tr>
+            </thead>
 
-            <TableBody className="font-medium text-[12px]">
+            <tbody className="font-medium text-[12px]">
               {issues.map((issue) => (
-                <TableRow key={issue.no}>
-                  <TableCell className="text-center">{issue.no}</TableCell>
-                  <TableCell className="text-center">{issue.week}</TableCell>
-                  <TableCell className="text-center">{issue.tanggal}</TableCell>
-                  <TableCell className="text-center">{issue.witel}</TableCell>
-                  <TableCell className="max-w-sm">
-                    <div className="whitespace-pre-wrap text-center">
+                <tr key={issue.no}>
+                  <td className="px-2 py-4 border-b-2">{issue.no}</td>
+                  <td className="px-2 py-4 border-b-2">{issue.week}</td>
+                  <td className="px-2 py-4 border-b-2">{issue.tanggal}</td>
+                  <td className="px-2 py-4 border-b-2">{issue.witel}</td>
+                  <td className="px-2 py-4 max-w-sm border-b-2">
+                    <div className="whitespace-pre-wrap">
                       {issue.issueDetail}
                     </div>
-                  </TableCell>
-                  <TableCell className="text-center whitespace-pre-wrap">
+                  </td>
+                  <td className="px-2 whitespace-pre-wrap py-4 border-b-2">
                     {issue.actionPlanM2}
-                  </TableCell>
-                  <TableCell className="text-center whitespace-pre-wrap">
+                  </td>
+                  <td className="px-2 whitespace-pre-wrap py-4 border-b-2">
                     {issue.actionPlanM3}
-                  </TableCell>
-                  <TableCell className="text-center whitespace-pre-wrap">
+                  </td>
+                  <td className="px-2 whitespace-pre-wrap py-4 border-b-2">
                     {issue.actionPlanM4}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {issue.startDate}
-                  </TableCell>
-                  <TableCell className="text-center">{issue.endDate}</TableCell>
-                  <TableCell className="text-center">{issue.weight}%</TableCell>
-                  <TableCell className="text-center">
-                    {issue.uicWitel}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {issue.eskalasiTreg}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {issue.supportNeeded}
-                  </TableCell>
-                  <TableCell className="text-center">{issue.picTreg}</TableCell>
+                  </td>
+                  <td className="px-2 py-4 border-b-2">{issue.startDate}</td>
+                  <td className="px-2 py-4 border-b-2">{issue.endDate}</td>
+                  <td className="px-2 py-4 border-b-2">{issue.weight}%</td>
+                  <td className="px-2 py-4 border-b-2">{issue.uicWitel}</td>
+                  <td className="px-2 py-4 border-b-2">{issue.eskalasiTreg}</td>
+                  <td className="px-2 py-4 border-b-2">{issue.supportNeeded}</td>
+                  <td className="px-2 py-4 border-b-2">{issue.picTreg}</td>
 
-                  <TableCell className="text-center">
+                  <td className="px-2 py-4 border-b-2">
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button
                           size="sm"
                           variant="outline"
-                          className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/80 hover:text-white"
+                          className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/80 hover:text-white min-w-[100px]"
                         >
                           Tampilkan Respon
                         </Button>
@@ -748,7 +740,7 @@ export const Eskalasi = () => {
                               .split("\n")
                               .map((line, index) => (
                                 <p key={index}>
-                                  {line.replace(/^\d+\.\s*/, "")}
+                                  {line}
                                 </p>
                               ))}
                           </div>
@@ -764,17 +756,17 @@ export const Eskalasi = () => {
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
-                  </TableCell>
+                  </td>
 
-                  <TableCell
-                    className={`text-center font-bold ${getProgressColorClass(
+                  <td
+                    className={`font-bold px-2 py-4 border-b-2 ${getProgressColorClass(
                       issue.progress
                     )}`}
                   >
                     {issue.progress}%
-                  </TableCell>
+                  </td>
 
-                  <TableCell>
+                  <td className="px-2 py-4 border-b-2">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
@@ -802,9 +794,9 @@ export const Eskalasi = () => {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                  </TableCell>
+                  </td>
 
-                  <TableCell className="text-center">
+                  <td className="px-2 py-4 border-b-2">
                     <Button
                       size="sm"
                       className="text-white bg-[#4E80EE] hover:bg-[#4E80EE]/80 hover:text-white"
@@ -812,11 +804,11 @@ export const Eskalasi = () => {
                     >
                       Follow Up
                     </Button>
-                  </TableCell>
-                </TableRow>
+                  </td>
+                </tr>
               ))}
-            </TableBody>
-          </Table>
+            </tbody>
+          </table>
         </CardContent>
       </Card>
 
@@ -834,17 +826,14 @@ export const Eskalasi = () => {
                 In Progress
               </p>
 
-              {/* Blok Issues */}
               <div className="w-[101.67px] flex flex-col items-center justify-center space-y-1 rounded-lg bg-[#3892F3] p-3 text-black h-[52px]">
                 <p className="text-[13px] font-semibold">{totalIssues}</p>
               </div>
 
-              {/* Blok Done */}
               <div className="w-[101.67px] flex flex-col items-center justify-center space-y-1 rounded-lg bg-[#10B981] p-3 text-black h-[52px]">
                 <p className="text-[13px] font-semibold">{doneIssues}</p>
               </div>
 
-              {/* Blok In Progress */}
               <div className="w-[101.67px] flex flex-col items-center justify-center rounded-lg bg-[#F59E0B] text-black h-[52px]">
                 <p className="text-[13px] font-semibold text-center">
                   {inProgressIssues}
